@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package caixa.model;
+package lancamento.model;
 
-public class Caixa {
+public class Lancamento {
 
-    private int saldo;
-    private StatusCaixa status;
+    private TipoDeLancamento tipo;
+    private Double valor;
+    private String descricao;
 
-    public Caixa() {
+    public Lancamento() {
         super();
     }
-
 }
