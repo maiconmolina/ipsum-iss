@@ -1,15 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package nfe.model;
 
-/**
- *
- * @author Maicon
- */
+import fornecedor.model.Fornecedor;
+
 public class NFe {
+    
+    private Integer codigo;
+    private Fornecedor fornecedor;
+    
+    public NFe(){
+        
+        this.codigo = null;
+        this.fornecedor = new Fornecedor();
+    }
+
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+    
     
 }
