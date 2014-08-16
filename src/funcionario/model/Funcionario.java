@@ -1,20 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package funcionario.model;
 
 import java.util.GregorianCalendar;
 import usuario.model.Usuario;
 
-/**
- *
- * @author maiconmolina
- */
 public class Funcionario extends Usuario {
 
-    private int codigo;
+    private Integer codigo;
     private String nome;
     private double salario;
     private GregorianCalendar dataNascimento;
@@ -23,24 +14,25 @@ public class Funcionario extends Usuario {
     private boolean temporario;
     private String telefone;
     private NivelHabilidade nivel;
-
-    public NivelHabilidade getNivel() {
-        return nivel;
-    }
-
-    public void setNivel(NivelHabilidade nivel) {
-        this.nivel = nivel;
-    }
+    private String endereco;
 
     public Funcionario() {
         super();
+        this.codigo = null;
+        this.nome = new String();
+        this.dataNascimento = new GregorianCalendar();
+        this.cpf = new String();
+        this.rg = new String();
+        this.temporario = false;
+        this.telefone = new String();
+        this.endereco = new String();
     }
 
     public int getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
 
@@ -98,6 +90,22 @@ public class Funcionario extends Usuario {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public NivelHabilidade getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(NivelHabilidade nivel) {
+        this.nivel = nivel;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
 }
