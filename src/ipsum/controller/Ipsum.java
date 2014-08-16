@@ -13,7 +13,7 @@ public class Ipsum {
 
 
         /*hohohoh*/
-        
+        int trololo;
         TelaStart tela = new TelaStart();
         tela.setVisible(true);
         
