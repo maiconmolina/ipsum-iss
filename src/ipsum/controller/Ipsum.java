@@ -14,6 +14,7 @@ public class Ipsum {
 
         /*hohohoh*/
         int trololo;
+        int selerehgay;
         TelaStart tela = new TelaStart();
         tela.setVisible(true);
         
