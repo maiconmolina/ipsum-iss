@@ -239,6 +239,7 @@
         <Menu class="javax.swing.JMenu" name="jMenu13">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ajuda"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Menu>
       </SubComponents>
@@ -299,7 +300,7 @@
         <Container class="javax.swing.JDesktopPane" name="jDesktopStart">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="cc" green="cc" red="cc" type="rgb"/>
+              <Color blue="99" green="99" red="99" type="rgb"/>
             </Property>
           </Properties>
           <AuxValues>

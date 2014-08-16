@@ -97,7 +97,7 @@ public class TelaStart extends javax.swing.JFrame {
         setTitle("Ipsum Costura");
         setMinimumSize(new java.awt.Dimension(800, 600));
 
-        jDesktopStart.setBackground(new java.awt.Color(204, 204, 204));
+        jDesktopStart.setBackground(new java.awt.Color(153, 153, 153));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -299,6 +299,7 @@ public class TelaStart extends javax.swing.JFrame {
         jMenuBar1.add(jMenu4);
 
         jMenu13.setText("Ajuda");
+        jMenu13.setEnabled(false);
         jMenuBar1.add(jMenu13);
 
         setJMenuBar(jMenuBar1);

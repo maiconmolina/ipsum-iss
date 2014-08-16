@@ -6,10 +6,22 @@
 
 package lote.model;
 
+
+import java.util.List;
+import produto.model.Produto;
+import javax.persistence.*;
+
+
 /**
  *
  * @author Maicon
  */
+
+@Entity
 public class Lote {
+    @Id
+    private Integer codigo;
+    private List<Produto> produtos;
+    
     
 }
