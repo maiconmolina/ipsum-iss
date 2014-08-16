@@ -1,10 +1,21 @@
 package nfe.model;
 
 import fornecedor.model.Fornecedor;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
+@Entity
 public class NFe {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer codigo;
+    
+    @OneToOne(fetch = FetchType.EAGER)
     private Fornecedor fornecedor;
     
     public NFe(){

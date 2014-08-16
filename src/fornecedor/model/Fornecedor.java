@@ -1,17 +1,41 @@
 package fornecedor.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import usuario.model.Usuario;
 
+@Entity
 public class Fornecedor extends Usuario {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer codigo;
+    
+    @Column (length = 14, name = "CNPJ", nullable = false)
     private String cnpj;
+    
+    @Column (length = 200, name = "NOME", nullable = false)
     private String nome;
+    
+    @Column (length = 20, name = "TELEFONE", nullable = false)
     private String telefone;
+    
+    @Column (length = 200, name = "ENDERECO", nullable = false)
     private String endereço;
+    
+    @Column (length = 50, name = "UF", nullable = false)
     private String uf;
+    
+    @Column (length = 200, name = "CIDADE", nullable = false)
     private String cidade;
+    
+    @Column (length = 8, name = "CEP", nullable = false)
     private String cep;
+    
+    @Column (length = 200, name= "EMAIL", nullable = true)
     private String email;    
     
     public Fornecedor() {
