@@ -10,11 +10,7 @@ public class Ipsum {
      */
     
     public static void main(String[] args) {
-
-
-        /*hohohoh*/
-        int trololo;
-        int trolololo; 
+        
         TelaStart tela = new TelaStart();
         tela.setVisible(true);
         
