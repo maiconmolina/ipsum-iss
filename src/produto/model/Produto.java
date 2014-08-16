@@ -11,7 +11,6 @@ import java.util.List;
 import material.model.Material;
 import javax.persistence.*;
 
-
 /**
  *
  * @author Maicon
