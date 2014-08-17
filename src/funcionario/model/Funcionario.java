@@ -15,6 +15,7 @@ public class Funcionario extends Usuario {
     private String telefone;
     private NivelHabilidade nivel;
     private String endereco;
+    private Funcoes funcao;
 
     public Funcionario() {
         super();
@@ -26,6 +27,8 @@ public class Funcionario extends Usuario {
         this.temporario = false;
         this.telefone = new String();
         this.endereco = new String();
+        this.funcao = Funcoes.Costureiro;
+        this.nivel = NivelHabilidade.Iniciante;
     }
 
     public int getCodigo() {
@@ -106,6 +109,14 @@ public class Funcionario extends Usuario {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    public Funcoes getFuncao() {
+        return funcao;
+    }
+
+    public void setFuncao(Funcoes funcao) {
+        this.funcao = funcao;
     }
 
 }
