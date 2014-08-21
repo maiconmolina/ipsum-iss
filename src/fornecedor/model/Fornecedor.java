@@ -17,14 +17,20 @@ public class Fornecedor extends Usuario {
     @Column (length = 14, name = "CNPJ", nullable = false)
     private String cnpj;
     
-    @Column (length = 200, name = "NOME", nullable = false)
-    private String nome;
+    @Column (length = 200, name = "RAZAO", nullable = false)
+    private String razao;
+    
+    @Column (length = 200, name = "FANTASIA", nullable = true)
+    private String fantasia;
     
     @Column (length = 20, name = "TELEFONE", nullable = false)
     private String telefone;
     
     @Column (length = 200, name = "ENDERECO", nullable = false)
     private String endereço;
+    
+    @Column (length = 10, name = "NUMERO", nullable = false)
+    private int numero;
     
     @Column (length = 50, name = "UF", nullable = false)
     private String uf;
@@ -42,8 +48,10 @@ public class Fornecedor extends Usuario {
         super();
         this.codigo = null;
         this.cnpj = new String();
-        this.nome = new String();
+        this.fantasia = new String();
+        this.razao = new String();
         this.telefone = new String();
+        this.numero = 0;
         this.endereço = new String();
         this.uf = new String();
         this.cidade = new String();
@@ -67,12 +75,28 @@ public class Fornecedor extends Usuario {
         this.cnpj = cnpj;
     }
 
-    public String getNome() {
-        return nome;
+    public String getRazao() {
+        return razao;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setRazao(String razao) {
+        this.razao = razao;
+    }
+
+    public String getFantasia() {
+        return fantasia;
+    }
+
+    public void setFantasia(String fantasia) {
+        this.fantasia = fantasia;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
 
     public String getTelefone() {
