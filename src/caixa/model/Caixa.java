@@ -1,17 +1,50 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package caixa.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Caixa {
 
-    private int saldo;
-    private StatusCaixa status;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer codigo;
+    
+    @Column(name = "SALDO", nullable = false)
+    private static double saldo;
+    
+    @Column(length = 1, name = "STATUS", nullable = false)
+    private static StatusCaixa status;
 
     public Caixa() {
         super();
+    }
+
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
+    public static double getSaldo() {
+        return saldo;
+    }
+
+    public static void setSaldo(double saldo) {
+        Caixa.saldo = saldo;
+    }
+
+    public static StatusCaixa getStatus() {
+        return status;
+    }
+
+    public static void setStatus(StatusCaixa status) {
+        Caixa.status = status;
     }
 
 }
