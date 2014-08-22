@@ -1,5 +1,6 @@
 package funcionario.model;
 
+import Util.Util;
 import java.util.GregorianCalendar;
 import usuario.model.Usuario;
 
@@ -55,6 +56,14 @@ public class Funcionario extends Usuario {
         this.salario = salario;
     }
 
+    public void setSalario(String salario) {
+        try {
+            this.salario = Double.parseDouble(salario);
+        } catch (NumberFormatException ex) {
+            this.salario = 0;
+        }
+    }
+
     public GregorianCalendar getDataNascimento() {
         return dataNascimento;
     }
@@ -63,12 +72,16 @@ public class Funcionario extends Usuario {
         this.dataNascimento = dataNascimento;
     }
 
+    public void setDataNascimento(String dataNascimento) {
+        this.dataNascimento = Util.StringToGregorian(dataNascimento);
+    }
+
     public String getCpf() {
         return cpf;
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf;
+        this.cpf = cpf.replace(".", "").replace("-", "");;
     }
 
     public String getRg() {
@@ -76,7 +89,7 @@ public class Funcionario extends Usuario {
     }
 
     public void setRg(String rg) {
-        this.rg = rg;
+        this.rg = rg.replace(".", "").replace("-", "").trim();
     }
 
     public boolean isTemporario() {
@@ -92,7 +105,7 @@ public class Funcionario extends Usuario {
     }
 
     public void setTelefone(String telefone) {
-        this.telefone = telefone;
+        this.telefone = telefone.replace("(", "").replace(")", "").replace("-", "").trim();
     }
 
     public NivelHabilidade getNivel() {

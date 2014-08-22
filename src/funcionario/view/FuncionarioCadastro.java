@@ -6,6 +6,12 @@
 package funcionario.view;
 
 import Util.Constante;
+import Util.ReturnValidate;
+import funcionario.controller.FuncionarioController;
+import funcionario.model.Funcionario;
+import funcionario.model.Funcoes;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -80,6 +86,11 @@ public class FuncionarioCadastro extends javax.swing.JInternalFrame {
         jLabel8.setText("Salário:");
 
         jButton1.setText("Salvar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jCheckBox1.setText("Temporário");
 
@@ -194,11 +205,39 @@ public class FuncionarioCadastro extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        this.jComboBox1.addItem(funcionario.model.Funcoes.Costureiro);
-        this.jComboBox1.addItem(funcionario.model.Funcoes.Gerente);
+        /*this.jComboBox1.addItem(funcionario.model.Funcoes.Costureiro);
+        this.jComboBox1.addItem(funcionario.model.Funcoes.Gerente);*/
+        for(Funcoes f : Funcoes.values()){
+            this.jComboBox1.addItem(f);
+        }
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (Arrays.equals(jPasswordField1.getPassword(), jPasswordField2.getPassword())) {
+            Funcionario func = new Funcionario();
+            func.setNome(jTextField3.getText());
+            func.setDataNascimento(jFormattedTextField1.getText());
+            func.setCpf(jFormattedTextField2.getText());
+            func.setRg(jTextField6.getText());
+            func.setTelefone(jFormattedTextField3.getText());
+            func.setEndereco(jTextField2.getText());
+            func.setFuncao((Funcoes) jComboBox1.getSelectedItem());
+            func.setSalario(jTextField8.getText());
+            func.setLogin(jTextField9.getText());
+            func.setSenha(jPasswordField1.getPassword());
+            func.setTemporario(jCheckBox1.isSelected());
+            ReturnValidate retorno = FuncionarioController.InsereFuncionario(func);
+            if (retorno.isValid()) {
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, retorno.getMessage());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "As senhas não conferem!");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

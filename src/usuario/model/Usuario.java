@@ -25,5 +25,14 @@ public abstract class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+    
+    public void setSenha(char[] senha){
+        String password = "";
+        for(int i = 0; i < senha.length; i++){
+            password += senha[i];
+            senha[i] = '\0';
+        }
+        this.senha = password;
+    }
 
 }

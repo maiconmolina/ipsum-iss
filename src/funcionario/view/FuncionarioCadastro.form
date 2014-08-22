@@ -209,6 +209,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Salvar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBox1">
       <Properties>
@@ -258,7 +261,7 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="this.jComboBox1.addItem(funcionario.model.Funcoes.Costureiro);&#xa;this.jComboBox1.addItem(funcionario.model.Funcoes.Gerente);"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="/*this.jComboBox1.addItem(funcionario.model.Funcoes.Costureiro);&#xa;this.jComboBox1.addItem(funcionario.model.Funcoes.Gerente);*/&#xa;for(Funcoes f : Funcoes.values()){&#xa;    this.jComboBox1.addItem(f);&#xa;}"/>
       </AuxValues>
     </Component>
   </SubComponents>
