@@ -5,6 +5,9 @@
  */
 package Util;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 import javax.swing.text.MaskFormatter;
 import junit.framework.TestCase;
 
@@ -42,5 +45,46 @@ public class UtilTest extends TestCase {
         System.out.println("ValidateCpfFalseNull");
         String cpf = null;
         assertFalse("Null não suportado.", Util.ValidateCpf(cpf));
+    }
+
+    public void testStringToGregorian() {
+        System.out.println("StringToGregorian");
+        GregorianCalendar gc = new GregorianCalendar(1994, 10, 18);
+        GregorianCalendar teste = Util.StringToGregorian("18/10/1994");
+        assertEquals(gc.get(Calendar.DAY_OF_MONTH), teste.get(Calendar.DAY_OF_MONTH));
+        assertEquals(gc.get(Calendar.MONTH), teste.get(Calendar.MONTH));
+        assertEquals(gc.get(Calendar.YEAR), teste.get(Calendar.YEAR));
+    }
+
+    public void testStringToGregorianError() {
+        System.out.println("StringToGregorianError");
+        GregorianCalendar date = Util.StringToGregorian("32/08/2014");
+        assertEquals(null, date);
+    }
+    
+    public void testStringToGregorianVazio() {
+        System.out.println("StringToGregorianVazio");
+        GregorianCalendar date = Util.StringToGregorian("  /  /    ");
+        assertEquals(null, date);
+    }
+    
+    public void testIsNumericTrue(){
+        System.out.println("IsNumericTrue");
+        assertTrue(Util.isNumeric("104311334"));
+    }
+    
+    public void testIsNumericFalse(){
+        System.out.println("IsNumericFalse");
+        assertFalse(Util.isNumeric("1043a1334"));
+    }
+    
+    public void testIsNumericEmpty(){
+        System.out.println("IsNumericEmpty");
+        assertTrue(Util.isNumeric(""));
+    }
+    
+    public void testIsNumericNull(){
+        System.out.println("IsNumericNull");
+        assertTrue(Util.isNumeric(null));
     }
 }
