@@ -23,7 +23,7 @@ public class Caixa {
     private static StatusCaixa status;
     
 //    @Basic
-//    List<Lancamento> lancamentos = new ArrayList<Lancamento>();
+    private List<Lancamento> lancamentos = new ArrayList<Lancamento>();
     
     public Caixa() {
         super();

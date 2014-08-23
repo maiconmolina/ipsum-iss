@@ -53,6 +53,16 @@ public class Lancamento {
         this.valor = valor;
     }
 
+    public void setValor(String valor) {
+        if ("".equals(valor)) {
+            this.valor = 0.0;
+        } else {
+            valor = valor.replace(",", ".");
+            Double valorDouble = Double.parseDouble(valor);
+            this.valor = valorDouble;
+        }
+    }
+
     public String getDescricao() {
         return descricao;
     }
@@ -60,6 +70,5 @@ public class Lancamento {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    
 
 }
