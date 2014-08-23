@@ -3,7 +3,7 @@ package funcionario.controller;
 import Util.ReturnValidate;
 import Util.Util;
 import funcionario.model.Funcionario;
-import funcionario.model.FuncionarioDAO;
+import funcionario.model.FuncionarioDaoImpl;
 import usuario.controller.UsuarioController;
 
 public class FuncionarioController {
@@ -39,7 +39,8 @@ public class FuncionarioController {
             retorno += validacaoUsuario.getMessage();
         }
         if (retorno.equals("")) {
-            FuncionarioDAO.InsertFuncionario(func);
+            FuncionarioDaoImpl a = new FuncionarioDaoImpl();
+            a.save(func);
         }
         return new ReturnValidate(retorno);
     }

@@ -7,8 +7,6 @@ package Util;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
-import javax.swing.text.MaskFormatter;
 import junit.framework.TestCase;
 
 /**
@@ -86,5 +84,41 @@ public class UtilTest extends TestCase {
     public void testIsNumericNull(){
         System.out.println("IsNumericNull");
         assertTrue(Util.isNumeric(null));
+    }
+    
+    public void testValidateCnpjTrue(){
+        System.out.println("ValidateCnpjTrue");
+        String cnpj = "60.871.406/0001-71";
+        assertTrue(Util.ValidateCnpj(cnpj));
+    }
+    
+    public void testValidateCnpjFalse(){
+        System.out.println("ValidateCnpjFalse");
+        String cnpj = "60.871.406/0001-72";
+        assertFalse(Util.ValidateCnpj(cnpj));
+    }
+    
+    public void testValidateCnpjNull(){
+        System.out.println("ValidateCnpjNull");
+        String cnpj = null;
+        assertFalse(Util.ValidateCnpj(cnpj));
+    }
+    
+    public void testValidateCnpjEmpty(){
+        System.out.println("ValidateCnpjEmpty");
+        String cnpj = "";
+        assertFalse(Util.ValidateCnpj(cnpj));
+    }
+    
+    public void testValidateCnpjCharacter(){
+        System.out.println("ValidateCnpjCharacter");
+        String cnpj = "asfgh";
+        assertFalse(Util.ValidateCnpj(cnpj));
+    }
+    
+    public void testValidateCnpjEspaco(){
+        System.out.println("ValidateCnpjEspaco");
+        String cnpj = "  .   .   /    -  ";
+        assertFalse(Util.ValidateCnpj(cnpj));
     }
 }

@@ -1,8 +1,6 @@
 package funcionario.model;
 
-public class FuncionarioDAO {
+import persistencia.DAO;
 
-    public static void InsertFuncionario(Funcionario func) {
-        // TODO
-    }
+public interface FuncionarioDAO extends DAO<Funcionario, Integer> {
 }

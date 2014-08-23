@@ -2,20 +2,48 @@ package funcionario.model;
 
 import Util.Util;
 import java.util.GregorianCalendar;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import usuario.model.Usuario;
 
+@Entity
 public class Funcionario extends Usuario {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer codigo;
+
+    @Column(length = 255, name = "NOME", nullable = false)
     private String nome;
+
+    @Column(name = "SALARIO", nullable = false)
     private double salario;
+
+    @Column(name = "DATA_NASCIMENTO", nullable = false)
     private GregorianCalendar dataNascimento;
+
+    @Column(length = 11, name = "CPF", nullable = false)
     private String cpf;
+
+    @Column(length = 25, name = "RG", nullable = false)
     private String rg;
+
+    @Column(name = "TEMPORARIO", nullable = false)
     private boolean temporario;
+
+    @Column(length = 10, name = "TELEFONE", nullable = false)
     private String telefone;
+
+    @Column(name = "NIVEL_HABILIDADE", nullable = false)
     private NivelHabilidade nivel;
+
+    @Column(length = 255, name = "ENDERECO", nullable = false)
     private String endereco;
+
+    @Column(name = "FUNCAO", nullable = false)
     private Funcoes funcao;
 
     public Funcionario() {
@@ -58,6 +86,7 @@ public class Funcionario extends Usuario {
 
     public void setSalario(String salario) {
         try {
+            salario = salario.replace(",", ".");
             this.salario = Double.parseDouble(salario);
         } catch (NumberFormatException ex) {
             this.salario = 0;
