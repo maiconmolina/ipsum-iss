@@ -1,10 +1,13 @@
 package caixa.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import lancamento.model.Lancamento;
 
 @Entity
 public class Caixa {
@@ -18,7 +21,10 @@ public class Caixa {
     
     @Column(length = 1, name = "STATUS", nullable = false)
     private static StatusCaixa status;
-
+    
+//    @Basic
+//    List<Lancamento> lancamentos = new ArrayList<Lancamento>();
+    
     public Caixa() {
         super();
     }
