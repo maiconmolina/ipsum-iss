@@ -1,15 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package material.model;
+
+import persistencia.DAO;
 
 /**
  *
- * @author Maicon
+ * @author maiconmolina
  */
-public class MaterialDAO {
+public interface MaterialDAO extends DAO<Material, Integer> {
     
 }
