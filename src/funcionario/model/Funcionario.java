@@ -46,6 +46,9 @@ public class Funcionario extends Usuario {
     @Column(name = "FUNCAO", nullable = false)
     private Funcoes funcao;
 
+    @Column(name = "ATIVO", nullable = false)
+    private Boolean ativo;
+
     public Funcionario() {
         super();
         this.codigo = null;
@@ -56,8 +59,9 @@ public class Funcionario extends Usuario {
         this.temporario = false;
         this.telefone = new String();
         this.endereco = new String();
-        this.funcao = Funcoes.Costureiro;
-        this.nivel = NivelHabilidade.Iniciante;
+        this.funcao = Funcoes.COSTUREIRO;
+        this.nivel = NivelHabilidade.INICIANTE;
+        this.ativo = true;
     }
 
     public int getCodigo() {
@@ -110,7 +114,7 @@ public class Funcionario extends Usuario {
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf.replace(".", "").replace("-", "");;
+        this.cpf = cpf.replace(".", "").replace("-", "");
     }
 
     public String getRg() {
@@ -159,6 +163,14 @@ public class Funcionario extends Usuario {
 
     public void setFuncao(Funcoes funcao) {
         this.funcao = funcao;
+    }
+
+    public Boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
 }

@@ -205,8 +205,6 @@ public class FuncionarioCadastro extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        /*this.jComboBox1.addItem(funcionario.model.Funcoes.Costureiro);
-        this.jComboBox1.addItem(funcionario.model.Funcoes.Gerente);*/
         for(Funcoes f : Funcoes.values()){
             this.jComboBox1.addItem(f);
         }

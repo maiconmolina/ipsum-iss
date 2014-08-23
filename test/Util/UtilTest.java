@@ -121,4 +121,16 @@ public class UtilTest extends TestCase {
         String cnpj = "  .   .   /    -  ";
         assertFalse(Util.ValidateCnpj(cnpj));
     }
+    
+    public void testValidateCnpjTrueNoMask(){
+        System.out.println("ValidateCnpjNoMask");
+        String cnpj = "60871406000171";
+        assertTrue(Util.ValidateCnpj(cnpj));
+    }
+    
+    public void testValidateCnpjFalseNoMask(){
+        System.out.println("ValidateCnpjNoMask");
+        String cnpj = "60871406000172";
+        assertFalse(Util.ValidateCnpj(cnpj));
+    }
 }

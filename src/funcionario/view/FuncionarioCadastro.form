@@ -261,7 +261,7 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="/*this.jComboBox1.addItem(funcionario.model.Funcoes.Costureiro);&#xa;this.jComboBox1.addItem(funcionario.model.Funcoes.Gerente);*/&#xa;for(Funcoes f : Funcoes.values()){&#xa;    this.jComboBox1.addItem(f);&#xa;}"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="for(Funcoes f : Funcoes.values()){&#xa;    this.jComboBox1.addItem(f);&#xa;}"/>
       </AuxValues>
     </Component>
   </SubComponents>
