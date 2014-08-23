@@ -6,7 +6,9 @@
 
 package material.model;
 
+import java.util.List;
 import javax.persistence.*;
+import produto.model.Produto;
 
 /**
  *
@@ -14,11 +16,24 @@ import javax.persistence.*;
  */
 @Entity
 public class Material{
+    
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "COD_MATERIAL")
     private Integer codigo;
+    
+    @Column(name = "DESCRICAO")
     private String descricao;
+    
+    @Column(name = "PRECO")
     private Double preco;
-
+    
+    @ManyToMany(mappedBy = "materiais")
+    private List<Produto> produtos;
+    
+    @Column(name = "ATIVO")
+    private Boolean ativo;
+    
     public Material(Integer codigo, String descricao, Double preco) {
         this.codigo = codigo;
         this.descricao = descricao;
@@ -26,6 +41,7 @@ public class Material{
     }
 
     public Material() {
+        super();
     }
 
     public Integer getCodigo() {
@@ -51,9 +67,21 @@ public class Material{
     public void setPreco(Double preco) {
         this.preco = preco;
     }
-    
-    
 
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
 
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+
+    public Boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
     
 }

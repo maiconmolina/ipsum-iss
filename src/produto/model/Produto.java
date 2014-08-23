@@ -1,27 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package produto.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import material.model.Material;
 import javax.persistence.*;
+import lote.model.Lote;
+import material.model.Material;
 
-/**
- *
- * @author Maicon
- */
+
 @Entity
 public class Produto {
+    
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "COD_PRODUTO")
     private Integer codigo;
+    
+    @Column(name = "DESCRICAO")
     private String descricao;
+    
+    @Column(name = "PRECO")
     private Double preco;
-    private List<Material> material; 
+    
+    @ManyToMany //Mapeamento bidirecional
+    @JoinTable(name="MATERIAIS_DO_PRODUTO", joinColumns={@JoinColumn(name="COD_PRODUTO")}, inverseJoinColumns={@JoinColumn(name="COD_MATERIAL")})
+    private List<Material> materiais; 
+    
+    @ManyToMany(mappedBy = "produtos")
+    private List<Lote> lotes;
+    
+    @Column(name = "ATIVO")
     private Boolean ativo;
 
     public Produto(Integer codigo) {
@@ -56,12 +63,12 @@ public class Produto {
         this.preco = preco;
     }
 
-    public List<Material> getMaterial() {
-        return material;
+    public List<Material> getMateriais() {
+        return materiais;
     }
 
-    public void setMaterial(List<Material> material) {
-        this.material = material;
+    public void setMateriais(List<Material> materiais) {
+        this.materiais = materiais;
     }
 
     public Boolean isAtivo() {
@@ -71,7 +78,13 @@ public class Produto {
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
     }
-    
-    
-    
+
+    public List<Lote> getLotes() {
+        return lotes;
+    }
+
+    public void setLotes(List<Lote> lotes) {
+        this.lotes = lotes;
+    }
+            
 }
