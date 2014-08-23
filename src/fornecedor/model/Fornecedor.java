@@ -1,5 +1,7 @@
 package fornecedor.model;
 
+import Util.UfEnum;
+import Util.Util;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,10 +32,10 @@ public class Fornecedor extends Usuario {
     private String endereço;
     
     @Column (length = 10, name = "NUMERO", nullable = false)
-    private int numero;
+    private Integer numero;
     
-    @Column (length = 50, name = "UF", nullable = false)
-    private String uf;
+    @Column (name = "UF", nullable = false)
+    private UfEnum uf;
     
     @Column (length = 200, name = "CIDADE", nullable = false)
     private String cidade;
@@ -44,6 +46,9 @@ public class Fornecedor extends Usuario {
     @Column (length = 200, name= "EMAIL", nullable = true)
     private String email;    
     
+    @Column (name = "ATIVO", nullable = false)
+    private Boolean ativo;
+    
     public Fornecedor() {
         super();
         this.codigo = null;
@@ -51,12 +56,13 @@ public class Fornecedor extends Usuario {
         this.fantasia = new String();
         this.razao = new String();
         this.telefone = new String();
-        this.numero = 0;
+        this.numero = null;
         this.endereço = new String();
-        this.uf = new String();
+        this.uf = null;
         this.cidade = new String();
         this.cep = new String();
         this.email = new String();
+        this.ativo = true;
     }
 
     public Integer getCodigo() {
@@ -72,7 +78,7 @@ public class Fornecedor extends Usuario {
     }
 
     public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+        this.cnpj = cnpj.replace(".", "").replace("-", "").replace("/", "");
     }
 
     public String getRazao() {
@@ -91,12 +97,20 @@ public class Fornecedor extends Usuario {
         this.fantasia = fantasia;
     }
 
-    public int getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(Integer numero) {
         this.numero = numero;
+    }
+    
+    public void setNumero(String numero){
+        if(Util.isNumeric(numero)){
+            this.numero = Integer.parseInt(numero);
+        }else{
+            this.numero = null;
+        }
     }
 
     public String getTelefone() {
@@ -104,7 +118,7 @@ public class Fornecedor extends Usuario {
     }
 
     public void setTelefone(String telefone) {
-        this.telefone = telefone;
+        this.telefone = telefone.replace("(", "").replace(")", "").replace("-", "");
     }
 
     public String getEndereço() {
@@ -115,11 +129,11 @@ public class Fornecedor extends Usuario {
         this.endereço = endereço;
     }
 
-    public String getUf() {
+    public UfEnum getUf() {
         return uf;
     }
 
-    public void setUf(String uf) {
+    public void setUf(UfEnum uf) {
         this.uf = uf;
     }
 
@@ -132,7 +146,7 @@ public class Fornecedor extends Usuario {
     }
 
     public String getCep() {
-        return cep;
+        return cep.replace("-", "");
     }
 
     public void setCep(String cep) {
@@ -147,5 +161,11 @@ public class Fornecedor extends Usuario {
         this.email = email;
     }
 
-    
+    public Boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
 }
