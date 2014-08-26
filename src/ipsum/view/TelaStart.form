@@ -53,12 +53,46 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Procurar"/>
+                    <Property name="text" type="java.lang.String" value="Consultar"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem4ActionPerformed"/>
                   </Events>
                 </MenuItem>
+              </SubComponents>
+            </Menu>
+            <Menu class="javax.swing.JMenu" name="jMenu14">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Produtos"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem18">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Cadastrar"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem19">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Consultar"/>
+                  </Properties>
+                </MenuItem>
+                <Menu class="javax.swing.JMenu" name="jMenu15">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Materiais"/>
+                  </Properties>
+                  <SubComponents>
+                    <MenuItem class="javax.swing.JMenuItem" name="jMenuItem20">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Cadastrar"/>
+                      </Properties>
+                    </MenuItem>
+                    <MenuItem class="javax.swing.JMenuItem" name="jMenuItem21">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Consultar"/>
+                      </Properties>
+                    </MenuItem>
+                  </SubComponents>
+                </Menu>
               </SubComponents>
             </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
@@ -67,6 +101,7 @@
                   <KeyStroke key="Alt+A"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Atualizar"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem5ActionPerformed"/>
@@ -75,6 +110,7 @@
             <Menu class="javax.swing.JMenu" name="jMenu8">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem17">

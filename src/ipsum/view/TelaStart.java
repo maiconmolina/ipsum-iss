@@ -69,6 +69,12 @@ public class TelaStart extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu14 = new javax.swing.JMenu();
+        jMenuItem18 = new javax.swing.JMenuItem();
+        jMenuItem19 = new javax.swing.JMenuItem();
+        jMenu15 = new javax.swing.JMenu();
+        jMenuItem20 = new javax.swing.JMenuItem();
+        jMenuItem21 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         jMenuItem17 = new javax.swing.JMenuItem();
@@ -144,7 +150,7 @@ public class TelaStart extends javax.swing.JFrame {
         });
         jMenu5.add(jMenuItem3);
 
-        jMenuItem4.setText("Procurar");
+        jMenuItem4.setText("Consultar");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -154,8 +160,29 @@ public class TelaStart extends javax.swing.JFrame {
 
         jMenu2.add(jMenu5);
 
+        jMenu14.setText("Produtos");
+
+        jMenuItem18.setText("Cadastrar");
+        jMenu14.add(jMenuItem18);
+
+        jMenuItem19.setText("Consultar");
+        jMenu14.add(jMenuItem19);
+
+        jMenu15.setText("Materiais");
+
+        jMenuItem20.setText("Cadastrar");
+        jMenu15.add(jMenuItem20);
+
+        jMenuItem21.setText("Consultar");
+        jMenu15.add(jMenuItem21);
+
+        jMenu14.add(jMenu15);
+
+        jMenu2.add(jMenu14);
+
         jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem5.setText("Atualizar");
+        jMenuItem5.setEnabled(false);
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
@@ -164,6 +191,7 @@ public class TelaStart extends javax.swing.JFrame {
         jMenu2.add(jMenuItem5);
 
         jMenu8.setText("Relatórios");
+        jMenu8.setEnabled(false);
 
         jMenuItem17.setText("Lotes por Fornecedor");
         jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
@@ -477,6 +505,8 @@ public class TelaStart extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu12;
     private javax.swing.JMenu jMenu13;
+    private javax.swing.JMenu jMenu14;
+    private javax.swing.JMenu jMenu15;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -495,7 +525,11 @@ public class TelaStart extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
+    private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem20;
+    private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
