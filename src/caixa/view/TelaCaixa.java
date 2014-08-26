@@ -6,6 +6,7 @@
 
 package caixa.view;
 
+import lancamento.view.TelaLancamento;
 import ipsum.view.TelaStart;
 
 /**

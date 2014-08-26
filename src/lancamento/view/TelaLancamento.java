@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package caixa.view;
+package lancamento.view;
 
 import Util.ReturnValidate;
 import javax.swing.JOptionPane;
@@ -114,7 +114,7 @@ public class TelaLancamento extends javax.swing.JInternalFrame {
         this.dispose();
         Lancamento lancamento = new Lancamento();
         lancamento.setDescricao(descricao.getText());
-//        lancamento.setTipo((TipoDeLancamento) tipo.getSelectedItem());
+        lancamento.setTipo((TipoDeLancamento) tipo.getSelectedItem());
         lancamento.setValor(valor.getText());
         ReturnValidate retorno = LancamentoController.InsereLancamento(lancamento);
         if (retorno.isValid()) {
