@@ -114,7 +114,11 @@ public class TelaLancamento extends javax.swing.JInternalFrame {
         this.dispose();
         Lancamento lancamento = new Lancamento();
         lancamento.setDescricao(descricao.getText());
-        lancamento.setTipo((TipoDeLancamento) tipo.getSelectedItem());
+        if (tipo.getSelectedItem().equals("Entrada")) {
+            lancamento.setTipo(TipoDeLancamento.Entrada);
+        } else if (tipo.getSelectedItem().equals("Saída")) {
+            lancamento.setTipo(TipoDeLancamento.Saída);
+        }
         lancamento.setValor(valor.getText());
         ReturnValidate retorno = LancamentoController.InsereLancamento(lancamento);
         if (retorno.isValid()) {

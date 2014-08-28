@@ -2,5 +2,5 @@
 package lancamento.model;
 
 public enum TipoDeLancamento {
-    Entrada, Saida
+    Entrada, Saída
 }
