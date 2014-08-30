@@ -1,5 +1,8 @@
 package usuario.model;
 
+import Util.ReturnValidate;
+import Util.Util;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import usuario.controller.UsuarioController;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -59,6 +63,39 @@ public abstract class Usuario {
             senha[i] = '\0';
         }
         this.senha = password;
+    }
+
+    public ReturnValidate isValid() {
+        String retorno = "";
+        if (Util.isNullOrEmpty(this.getLogin())) {
+            retorno += "Campo 'Login' não pode ser vazio\n";
+        }
+        if (!this.isValidLogin()) {
+            retorno += "O Login informado já está cadastrado no sistema\n";
+        }
+        if (Util.isNullOrEmpty(this.getSenha())) {
+            retorno += "Campo 'Senha' não pode ser vazio\n";
+        }
+        return new ReturnValidate(retorno);
+    }
+
+    private boolean isValidLogin() {
+        UsuarioDaoImpl usu = new UsuarioDaoImpl();
+        List<Usuario> users = usu.getAll(Usuario.class);
+        if (this.codigo == null) {
+            for (Usuario u : users) {
+                if (u.getLogin().equals(this.getLogin())) {
+                    return false;
+                }
+            }
+        } else {
+            for (Usuario u : users) {
+                if (u.getLogin().equals(this.getLogin()) && !this.getSuperCodigo().equals(u.getSuperCodigo())) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }

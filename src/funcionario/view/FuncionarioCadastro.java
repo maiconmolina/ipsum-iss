@@ -7,6 +7,7 @@ package funcionario.view;
 
 import Util.Constante;
 import Util.ReturnValidate;
+import Util.Util;
 import funcionario.controller.FuncionarioController;
 import funcionario.model.Funcionario;
 import funcionario.model.Funcoes;
@@ -214,28 +215,66 @@ public class FuncionarioCadastro extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (Arrays.equals(jPasswordField1.getPassword(), jPasswordField2.getPassword())) {
-            Funcionario func = new Funcionario();
-            func.setNome(jTextField3.getText());
-            func.setDataNascimento(jFormattedTextField1.getText());
-            func.setCpf(jFormattedTextField2.getText());
-            func.setRg(jTextField6.getText());
-            func.setTelefone(jFormattedTextField3.getText());
-            func.setEndereco(jTextField2.getText());
-            func.setFuncao((Funcoes) jComboBox1.getSelectedItem());
-            func.setSalario(jTextField8.getText());
-            func.setLogin(jTextField9.getText());
-            func.setSenha(jPasswordField1.getPassword());
-            func.setTemporario(jCheckBox1.isSelected());
-            ReturnValidate retorno = FuncionarioController.InsereFuncionario(func);
-            if (retorno.isValid()) {
-                this.setVisible(false);
+            ReturnValidate validacaoView = this.validaFuncionarioView();
+            if (validacaoView.isValid()){
+                Funcionario func = new Funcionario();
+
+                func.setNome(jTextField3.getText());
+                func.setDataNascimento(jFormattedTextField1.getText());
+                func.setCpf(jFormattedTextField2.getText());
+                func.setRg(jTextField6.getText());
+                func.setTelefone(jFormattedTextField3.getText());
+                func.setEndereco(jTextField2.getText());
+                func.setFuncao((Funcoes) jComboBox1.getSelectedItem());
+                func.setSalario(jTextField8.getText());
+                func.setLogin(jTextField9.getText());
+                func.setSenha(jPasswordField1.getPassword());
+                func.setTemporario(jCheckBox1.isSelected());
+                ReturnValidate retorno = FuncionarioController.InsereFuncionario(func);
+                if (retorno.isValid()) {
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, retorno.getMessage());
+                }
             } else {
-                JOptionPane.showMessageDialog(this, retorno.getMessage());
+                JOptionPane.showMessageDialog(this, validacaoView.getMessage());
             }
         } else {
             JOptionPane.showMessageDialog(this, "As senhas não conferem!");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private ReturnValidate validaFuncionarioView() {
+        String retorno = "";
+        if (Util.isNullOrEmpty(jTextField3.getText())) {
+            retorno += "Campo 'Nome' não pode ser vazio\n";
+        }
+        if (Util.StringToGregorian(jFormattedTextField1.getText()) == null) {
+            retorno += "Campo 'Data Nasc.' inválido\n";
+        }
+        if (!Util.ValidateCpf(jFormattedTextField2.getText())) {
+            retorno += "CPF inválido\n";
+        }
+        if (Util.isNullOrEmpty(jTextField6.getText())) {
+            retorno += "Campo 'RG' não pode ser vazio\n";
+        }
+        if (!Util.isNumeric(jTextField6.getText())) {
+            retorno += "Campo 'RG' inválido\n";
+        }
+        if (Util.isNullOrEmpty(jFormattedTextField3.getText().replace("(", "").replace(")", "").replace("-", ""))) {
+            retorno += "Campo 'Telefone' não pode ser vazio\n";
+        }
+        if (Util.isNullOrEmpty(jTextField2.getText())) {
+            retorno += "Campo 'Endereço' não pode ser vazio\n";
+        }
+        try {
+            Double.parseDouble(jTextField8.getText().replace(",", "."));
+        } catch (NumberFormatException ex) {
+            retorno += "Campo 'Salário' inválido\n";
+        }
+
+        return new ReturnValidate(retorno);
+    }
 
     /**
      * @param args the command line arguments

@@ -139,7 +139,7 @@ public class Util {
         GregorianCalendar gc = new GregorianCalendar();
         gc.setLenient(false);
         gc.set(Calendar.DAY_OF_MONTH, dia);
-        gc.set(Calendar.MONTH, mes);
+        gc.set(Calendar.MONTH, mes - 1);
         gc.set(Calendar.YEAR, ano);
         try {
             gc.getTime();
@@ -161,5 +161,9 @@ public class Util {
             }
         }
         return true;
+    }
+    
+    public static boolean isNullOrEmpty(String str){
+        return str == null || str.equals("");
     }
 }

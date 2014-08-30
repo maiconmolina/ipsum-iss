@@ -133,4 +133,19 @@ public class UtilTest extends TestCase {
         String cnpj = "60871406000172";
         assertFalse(Util.ValidateCnpj(cnpj));
     }
+    
+    public void testIsNullOrEmptyTrueNull(){
+        System.out.println("IsNullOrEmptyTrueNull");
+        assertTrue(Util.isNullOrEmpty(null));
+    }
+    
+    public void testIsNullOrEmptyTrueEmpty(){
+        System.out.println("IsNullOrEmptyTrueEmpty");
+        assertTrue(Util.isNullOrEmpty(""));
+    }
+    
+    public void testIsNullOrEmptyFalse(){
+        System.out.println("IsNullOrEmptyFalse");
+        assertFalse(Util.isNullOrEmpty("Teste"));
+    }
 }

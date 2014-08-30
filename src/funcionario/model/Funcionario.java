@@ -1,7 +1,9 @@
 package funcionario.model;
 
+import Util.ReturnValidate;
 import Util.Util;
 import java.util.GregorianCalendar;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -64,7 +66,7 @@ public class Funcionario extends Usuario {
         this.ativo = true;
     }
 
-    public int getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
@@ -114,7 +116,9 @@ public class Funcionario extends Usuario {
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf.replace(".", "").replace("-", "");
+        if (Util.ValidateCpf(cpf)) {
+            this.cpf = cpf.replace(".", "").replace("-", "");
+        }
     }
 
     public String getRg() {
@@ -173,4 +177,45 @@ public class Funcionario extends Usuario {
         this.ativo = ativo;
     }
 
+    @Override
+    public ReturnValidate isValid() {
+        String retorno = "";
+        if (!this.isValidCpf()) {
+            retorno += "CPF cadastrado já está em uso\n";
+        }
+        ReturnValidate validacaoUsuario = super.isValid();
+        if (!validacaoUsuario.isValid()) {
+            retorno += validacaoUsuario.getMessage();
+        }
+
+        return new ReturnValidate(retorno);
+    }
+
+    private boolean isValidCpf() {
+        FuncionarioDaoImpl func = new FuncionarioDaoImpl();
+        List<Funcionario> funcionarios = func.getAll(Funcionario.class);
+        if (this.getCodigo() == null) {
+            for (Funcionario f : funcionarios) {
+                if (f.getCpf().equals(this.getCpf())) {
+                    return false;
+                }
+            }
+        } else {
+            for (Funcionario f : funcionarios) {
+                if (f.getCpf().equals(this.getCpf()) && !this.getCodigo().equals(f.getCodigo())) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public ReturnValidate save() {
+        ReturnValidate validacao = this.isValid();
+        if (validacao.isValid()) {
+            FuncionarioDaoImpl func = new FuncionarioDaoImpl();
+            func.save(this);
+        }
+        return validacao;
+    }
 }
