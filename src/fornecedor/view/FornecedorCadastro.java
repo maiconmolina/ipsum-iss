@@ -9,6 +9,7 @@ package fornecedor.view;
 import Util.Constante;
 import Util.ReturnValidate;
 import Util.UfEnum;
+import Util.Util;
 import fornecedor.controller.FornecedorController;
 import fornecedor.model.Fornecedor;
 import java.util.Arrays;
@@ -285,7 +286,41 @@ public class FornecedorCadastro extends javax.swing.JInternalFrame {
             
         }
     }//GEN-LAST:event_SalvarActionPerformed
-
+    
+    private ReturnValidate validaFornecedorView(){
+        String retorno = "";
+        
+        if (Util.isNullOrEmpty(RazaoSocial.getText())){
+            retorno += "Campo 'Razao Social' não pode ser vazio\n";
+        }
+        
+        if (Util.isNullOrEmpty(CNPJ.getText())) {
+            retorno += "CNPJ inválido\n";
+        }
+        
+        if (Util.isNullOrEmpty(Telefone.getText())){
+            retorno += "Campo 'Telefone' não pode ser vazio\n";
+        }
+        
+        if (Util.isNullOrEmpty(CEP.getText())){
+            retorno += "Campo 'CEP' não pode ser vazio\n";
+        }
+        
+        if (Util.isNullOrEmpty(Endereco.getText())){
+            retorno += "Campo 'Endereco' não pode ser vazio\n";
+        }
+        
+        if (Util.isNullOrEmpty(Numero.getText())){
+            retorno += "Campo 'Numero' não pode ser vazio\n";
+        }
+        
+        if (Util.isNullOrEmpty(Cidade.getText())){
+            retorno += "Campo 'Cidade' não pode ser vazio\n";
+        }
+        
+        return new ReturnValidate(retorno);
+    }
+    
     /**
      * @param args the command line arguments
      */

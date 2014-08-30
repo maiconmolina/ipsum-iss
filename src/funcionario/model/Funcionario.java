@@ -2,6 +2,7 @@ package funcionario.model;
 
 import Util.ReturnValidate;
 import Util.Util;
+import java.io.Serializable;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.persistence.Column;
@@ -13,11 +14,11 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import usuario.model.Usuario;
 
 @Entity
-public class Funcionario extends Usuario {
+@PrimaryKeyJoinColumn(name = "SUPER_CODIGO")
+public class Funcionario extends Usuario implements Serializable {
 
     @Id
     @Column(name = "CODIGO")
-    @PrimaryKeyJoinColumn(name = "SUPER_CODIGO")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer codigo;
 

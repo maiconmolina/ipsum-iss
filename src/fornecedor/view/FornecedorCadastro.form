@@ -72,10 +72,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="Cidade" pref="205" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="Telefone" alignment="0" pref="205" max="32767" attributes="0"/>
-                              <Component id="CNPJ" alignment="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="Telefone" alignment="0" pref="205" max="32767" attributes="0"/>
+                          <Component id="CNPJ" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
