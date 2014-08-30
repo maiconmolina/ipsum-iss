@@ -1,5 +1,6 @@
 package caixa.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -14,7 +15,7 @@ import lancamento.model.Lancamento;
 
 @Entity
 @Table(name = "Caixa")
-public class Caixa {
+public class Caixa implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
