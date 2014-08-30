@@ -6,6 +6,7 @@
 package lancamento.view;
 
 import Util.ReturnValidate;
+import Util.Util;
 import javax.swing.JOptionPane;
 import lancamento.controller.LancamentoController;
 import lancamento.model.Lancamento;
@@ -112,23 +113,41 @@ public class TelaLancamento extends javax.swing.JInternalFrame {
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
         this.dispose();
-        Lancamento lancamento = new Lancamento();
-        lancamento.setDescricao(descricao.getText());
-        if (tipo.getSelectedItem().equals("Entrada")) {
-            lancamento.setTipo(TipoDeLancamento.Entrada);
-        } else if (tipo.getSelectedItem().equals("Saída")) {
-            lancamento.setTipo(TipoDeLancamento.Saída);
+        ReturnValidate validacaoView = this.validaLancamentoView();
+        if (validacaoView.isValid()) {
+            Lancamento lancamento = new Lancamento();
+            lancamento.setDescricao(descricao.getText());
+            if (tipo.getSelectedItem().equals("Entrada")) {
+                lancamento.setTipo(TipoDeLancamento.Entrada);
+            } else if (tipo.getSelectedItem().equals("Saída")) {
+                lancamento.setTipo(TipoDeLancamento.Saída);
+            }
+            lancamento.setValor(valor.getText());
+            ReturnValidate retorno = LancamentoController.InsereLancamento(lancamento);
+            if (retorno.isValid()) {
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, retorno.getMessage());
+            }
         }
-        lancamento.setValor(valor.getText());
-        ReturnValidate retorno = LancamentoController.InsereLancamento(lancamento);
-        if (retorno.isValid()) {
-            this.setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(this, retorno.getMessage());
-        }
-        
     }//GEN-LAST:event_salvarActionPerformed
 
+    private ReturnValidate validaLancamentoView() {
+        String retorno = "";
+        if (Util.isNullOrEmpty(descricao.getText())) {
+            retorno += "Campo 'Descrição' não pode ser vazio\n";
+        }
+        if (Util.isNullOrEmpty(valor.getText())) {
+            retorno += "Campo 'Valor' inválido\n";
+        }
+        try {
+            Double.parseDouble(valor.getText().replace(",", "."));
+        } catch (NumberFormatException ex) {
+            retorno += "Campo 'Valor' inválido\n";
+        }
+
+        return new ReturnValidate(retorno);
+    }
     private void descricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descricaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_descricaoActionPerformed
@@ -178,4 +197,3 @@ public class TelaLancamento extends javax.swing.JInternalFrame {
     private javax.swing.JTextField valor;
     // End of variables declaration//GEN-END:variables
 }
-

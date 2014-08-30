@@ -5,6 +5,7 @@
  */
 package lancamento.model;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +16,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Lancamento")
 
-public class Lancamento {
+public class Lancamento implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
