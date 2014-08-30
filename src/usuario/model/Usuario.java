@@ -10,13 +10,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import usuario.controller.UsuarioController;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Usuario {
 
     @Id
+    @Column(name = "SUPER_CODIGO")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer codigo;
 

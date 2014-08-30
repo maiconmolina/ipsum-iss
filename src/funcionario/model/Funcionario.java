@@ -9,12 +9,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
 import usuario.model.Usuario;
 
 @Entity
 public class Funcionario extends Usuario {
 
     @Id
+    @Column(name = "CODIGO")
+    @PrimaryKeyJoinColumn(name = "SUPER_CODIGO")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer codigo;
 
