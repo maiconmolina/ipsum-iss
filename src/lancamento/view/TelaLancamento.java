@@ -7,6 +7,8 @@ package lancamento.view;
 
 import Util.ReturnValidate;
 import Util.Util;
+import caixa.view.TelaCaixa;
+import ipsum.view.TelaStart;
 import javax.swing.JOptionPane;
 import lancamento.controller.LancamentoController;
 import lancamento.model.Lancamento;
@@ -52,7 +54,14 @@ public class TelaLancamento extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Valor:");
 
-        tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Entrada", "Saída" }));
+        tipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipoActionPerformed(evt);
+            }
+        });
+        for(TipoDeLancamento t : TipoDeLancamento.values()){
+            this.tipo.addItem(t);
+        }
 
         descricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,23 +121,27 @@ public class TelaLancamento extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
-        this.dispose();
         ReturnValidate validacaoView = this.validaLancamentoView();
         if (validacaoView.isValid()) {
             Lancamento lancamento = new Lancamento();
             lancamento.setDescricao(descricao.getText());
-            if (tipo.getSelectedItem().equals("Entrada")) {
-                lancamento.setTipo(TipoDeLancamento.Entrada);
-            } else if (tipo.getSelectedItem().equals("Saída")) {
-                lancamento.setTipo(TipoDeLancamento.Saída);
-            }
+            lancamento.setTipo((TipoDeLancamento) tipo.getSelectedItem());
             lancamento.setValor(valor.getText());
             ReturnValidate retorno = LancamentoController.InsereLancamento(lancamento);
             if (retorno.isValid()) {
                 this.setVisible(false);
+                this.dispose();
+                TelaCaixa tl = new TelaCaixa();
+                TelaStart.addFrame(tl);
+                tl.setLocation(10, 10);
+                tl.setVisible(true);
+                this.dispose();
             } else {
-                JOptionPane.showMessageDialog(this, retorno.getMessage());
+
+                JOptionPane.showMessageDialog(this, "Erro ao gravar no Banco de Dados");
             }
+        } else {
+            JOptionPane.showMessageDialog(this, validacaoView.getMessage());
         }
     }//GEN-LAST:event_salvarActionPerformed
 
@@ -151,6 +164,10 @@ public class TelaLancamento extends javax.swing.JInternalFrame {
     private void descricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descricaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_descricaoActionPerformed
+
+    private void tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tipoActionPerformed
 
     /**
      * @param args the command line arguments

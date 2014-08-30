@@ -5,6 +5,7 @@
  */
 package lancamento.model;
 
+import Util.ReturnValidate;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Lancamento")
 
-public class Lancamento implements Serializable{
+public class Lancamento implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -77,4 +78,25 @@ public class Lancamento implements Serializable{
         this.descricao = descricao;
     }
 
+    public ReturnValidate save() {
+        ReturnValidate validacao = this.isValid();
+        if (validacao.isValid()) {
+            LancamentoDAOImpl lanc = new LancamentoDAOImpl();
+            lanc.save(this);
+        }
+        return validacao;
+    }
+
+    public ReturnValidate remove() {
+        ReturnValidate validacao = this.isValid();
+        if (validacao.isValid()) {
+            LancamentoDAOImpl lanc = new LancamentoDAOImpl();
+            lanc.remove(this);
+        }
+        return validacao;
+    }
+
+    public ReturnValidate isValid() {
+        return new ReturnValidate("");
+    }
 }

@@ -3,11 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package caixa.view;
 
+import Util.InterfaceUtils;
 import lancamento.view.TelaLancamento;
 import ipsum.view.TelaStart;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import lancamento.controller.LancamentoController;
+import lancamento.model.Lancamento;
 
 /**
  *
@@ -20,6 +27,16 @@ public class TelaCaixa extends javax.swing.JInternalFrame {
      */
     public TelaCaixa() {
         initComponents();
+        List<Lancamento> lancamentos = LancamentoController.busca();
+        DefaultTableModel model = (DefaultTableModel) tabelaLancamentos.getModel();
+        for (Lancamento lancamento : lancamentos) {
+            Vector dados = new Vector();
+            dados.add(lancamento.getDescricao());
+            dados.add(lancamento.getTipo());
+            dados.add(lancamento.getValor());
+            model.addRow(dados);
+        }
+//        saldo.setTexttitle);
     }
 
     /**
@@ -32,66 +49,26 @@ public class TelaCaixa extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaLancamentos = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        saldo = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Caixa");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaLancamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Descrição", "Tipo", "Valor"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelaLancamentos);
 
         jButton1.setText("Novo Lançamento");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -110,10 +87,15 @@ public class TelaCaixa extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Lançamentos: 0");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Saldo: R$ 0,00");
+        saldo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        saldo.setText("Saldo: R$ 0,00");
 
         jButton4.setText("Alterar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,7 +114,7 @@ public class TelaCaixa extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)))
+                        .addComponent(saldo)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -141,7 +123,7 @@ public class TelaCaixa extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(saldo))
                 .addGap(11, 11, 11)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -149,7 +131,7 @@ public class TelaCaixa extends javax.swing.JInternalFrame {
                     .addComponent(jButton1)
                     .addComponent(jButton3)
                     .addComponent(jButton4))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -164,7 +146,11 @@ public class TelaCaixa extends javax.swing.JInternalFrame {
         TelaStart.addFrame(tl);
         tl.setLocation(10, 10);
         tl.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,8 +192,8 @@ public class TelaCaixa extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel saldo;
+    private javax.swing.JTable tabelaLancamentos;
     // End of variables declaration//GEN-END:variables
 }

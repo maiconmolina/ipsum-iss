@@ -1,22 +1,25 @@
 package lancamento.controller;
 
 import Util.ReturnValidate;
-import Util.Util;
+import java.util.ArrayList;
+import java.util.List;
 import lancamento.model.Lancamento;
-import lancamento.model.LancamentoDAO;
+import lancamento.model.LancamentoDAOImpl;
+//import lancamento.model.LancamentoDAO;
 
 public class LancamentoController {
 
     public static ReturnValidate InsereLancamento(Lancamento lanc) {
-        String retorno = "";
-        if ("".equals(lanc.getDescricao())) {
-            retorno += "Campo 'Descrição' não pode ser vazio\n";
-        }
-        if (lanc.getValor() <= 0) {
-            retorno += "Campo 'Valor' inválido\n";
-        }
+        return lanc.save();
+    }
 
-        return new ReturnValidate(retorno);
+    public static ReturnValidate Remove(Lancamento lanc) {
+        return lanc.remove();
+    }
+
+    public static List<Lancamento> busca() {
+        LancamentoDAOImpl lanc = new LancamentoDAOImpl();
+        return lanc.getAll(Lancamento.class);
     }
 
 }
