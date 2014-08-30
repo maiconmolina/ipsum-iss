@@ -124,7 +124,7 @@ public class Util {
         }
     }
 
-    public static GregorianCalendar StringToGregorian(String date) {
+    public static Calendar StringToCalendar(String date) {
         if (date == null) {
             return null;
         }
@@ -136,10 +136,10 @@ public class Util {
         int mes = Integer.parseInt(date.substring(2, 4));
         int ano = Integer.parseInt(date.substring(4, 8));
 
-        GregorianCalendar gc = new GregorianCalendar();
+        Calendar gc = Calendar.getInstance();
         gc.setLenient(false);
         gc.set(Calendar.DAY_OF_MONTH, dia);
-        gc.set(Calendar.MONTH, mes - 1);
+        gc.set(Calendar.MONTH, mes);
         gc.set(Calendar.YEAR, ano);
         try {
             gc.getTime();

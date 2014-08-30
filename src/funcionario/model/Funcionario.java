@@ -12,7 +12,6 @@ import usuario.model.Usuario;
 public class Funcionario extends Usuario implements Serializable {
 
     @Id
-    //@Column(name = "CODIGO")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer codigo;
 
@@ -20,7 +19,7 @@ public class Funcionario extends Usuario implements Serializable {
     private String nome;
 
     @Column(name = "SALARIO", nullable = false)
-    private double salario;
+    private Double salario;
 
     @Column(name = "DATA_NASCIMENTO", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -52,7 +51,7 @@ public class Funcionario extends Usuario implements Serializable {
 
     public Funcionario() {
         super();
-        /*this.codigo = null;
+        this.codigo = null;
         this.nome = new String();
         this.dataNascimento = Calendar.getInstance();
         this.cpf = new String();
@@ -62,7 +61,8 @@ public class Funcionario extends Usuario implements Serializable {
         this.endereco = new String();
         this.funcao = Funcoes.COSTUREIRO;
         this.nivel = NivelHabilidade.INICIANTE;
-        this.ativo = true;*/
+        this.ativo = true;
+        this.salario = 0.0;
     }
 
     public Integer getCodigo() {
@@ -81,11 +81,11 @@ public class Funcionario extends Usuario implements Serializable {
         this.nome = nome;
     }
 
-    public double getSalario() {
+    public Double getSalario() {
         return salario;
     }
 
-    public void setSalario(double salario) {
+    public void setSalario(Double salario) {
         this.salario = salario;
     }
 
@@ -94,7 +94,7 @@ public class Funcionario extends Usuario implements Serializable {
             salario = salario.replace(",", ".");
             this.salario = Double.parseDouble(salario);
         } catch (NumberFormatException ex) {
-            this.salario = 0;
+            this.salario = 0.0;
         }
     }
 
@@ -107,7 +107,7 @@ public class Funcionario extends Usuario implements Serializable {
     }
 
     public void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = Util.StringToGregorian(dataNascimento);
+        this.dataNascimento = Util.StringToCalendar(dataNascimento);
     }
 
     public String getCpf() {

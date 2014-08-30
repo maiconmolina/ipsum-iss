@@ -10,6 +10,7 @@
     <class>material.model.Material</class>
     <class>nfe.model.NFe</class>
     <class>produto.model.Produto</class>
+    <class>usuario.model.Usuario</class>
     <properties>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/ipsum"/>

@@ -1,21 +1,21 @@
 package fornecedor.model;
 
+import Util.ReturnValidate;
 import Util.UfEnum;
 import Util.Util;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
 import usuario.model.Usuario;
 
 @Entity
 public class Fornecedor extends Usuario implements Serializable {
 
     @Id
-    //@Column(name = "CODIGO")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer codigo;
     
@@ -170,5 +170,46 @@ public class Fornecedor extends Usuario implements Serializable {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+    @Override
+    public ReturnValidate isValid() {
+        String retorno = "";
+        if (!this.isValidCnpj()) {
+            retorno += "CNPJ cadastrado já está em uso\n";
+        }
+        ReturnValidate validacaoUsuario = super.isValid();
+        if (!validacaoUsuario.isValid()) {
+            retorno += validacaoUsuario.getMessage();
+        }
+
+        return new ReturnValidate(retorno);
+    }
+    
+    private boolean isValidCnpj() {
+        FornecedorDAOImpl forn = new FornecedorDAOImpl();
+        List<Fornecedor> fornecedores = forn.getAll(Fornecedor.class);
+        if (this.getCodigo() == null){
+            for (Fornecedor f: fornecedores){
+                if (f.getCnpj().equals(this.getCnpj())) {
+                    return false;
+                }     
+            }
+        } else{
+            for (Fornecedor f: fornecedores){
+                if (f.getCnpj().equals(this.getCnpj()) && !this.getCodigo().equals(f.getCodigo())) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+             
+    public ReturnValidate save() {
+        ReturnValidate validacao = this.isValid();
+        if (validacao.isValid()) {
+            FornecedorDAOImpl forn = new FornecedorDAOImpl();
+            forn.save(this);
+        }
+        return validacao;
     }
 }
