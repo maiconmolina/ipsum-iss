@@ -12,45 +12,44 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import usuario.model.Usuario;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "SUPER_CODIGO")
 public class Fornecedor extends Usuario implements Serializable {
 
     @Id
-    @Column(name = "CODIGO")
+    //@Column(name = "CODIGO")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer codigo;
     
-    @Column (length = 14, name = "CNPJ", nullable = false)
+    @Column (length = 14, name = "CNPJ")
     private String cnpj;
     
-    @Column (length = 200, name = "RAZAO", nullable = false)
+    @Column (length = 200, name = "RAZAO")
     private String razao;
     
-    @Column (length = 200, name = "FANTASIA", nullable = true)
+    @Column (length = 200, name = "FANTASIA")
     private String fantasia;
     
-    @Column (length = 20, name = "TELEFONE", nullable = false)
+    @Column (length = 20, name = "TELEFONE")
     private String telefone;
     
-    @Column (length = 200, name = "ENDERECO", nullable = false)
+    @Column (length = 200, name = "ENDERECO")
     private String endereço;
     
-    @Column (length = 10, name = "NUMERO", nullable = false)
+    @Column (length = 10, name = "NUMERO")
     private Integer numero;
     
-    @Column (name = "UF", nullable = false)
+    @Column (name = "UF")
     private UfEnum uf;
     
-    @Column (length = 200, name = "CIDADE", nullable = false)
+    @Column (length = 200, name = "CIDADE")
     private String cidade;
     
-    @Column (length = 8, name = "CEP", nullable = false)
+    @Column (length = 8, name = "CEP")
     private String cep;
     
-    @Column (length = 200, name= "EMAIL", nullable = true)
+    @Column (length = 200, name= "EMAIL")
     private String email;    
     
-    @Column (name = "ATIVO", nullable = false)
+    @Column (name = "ATIVO")
     private Boolean ativo;
     
     public Fornecedor() {

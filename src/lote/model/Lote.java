@@ -1,14 +1,15 @@
 package lote.model;
 
 
-import java.util.GregorianCalendar;
+import java.io.Serializable;
+import java.util.Calendar;
 import java.util.List;
 import produto.model.Produto;
 import javax.persistence.*;
 
 
 @Entity
-public class Lote {
+public class Lote implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,14 +24,15 @@ public class Lote {
         super();
     }
 
-    public Lote(Integer codigo, List<Produto> produtos, GregorianCalendar dataLote) {
+    public Lote(Integer codigo, List<Produto> produtos, Calendar dataLote) {
         this.codigo = codigo;
         this.produtos = produtos;
         this.dataLote = dataLote;
     }
     
     @Column(name = "dataLote")
-    private GregorianCalendar dataLote;
+    @Temporal(TemporalType.DATE)
+    private Calendar dataLote;
 
     public Integer getCodigo() {
         return codigo;
@@ -48,11 +50,11 @@ public class Lote {
         this.produtos = produtos;
     }
 
-    public GregorianCalendar getDataLote() {
+    public Calendar getDataLote() {
         return dataLote;
     }
 
-    public void setDataLote(GregorianCalendar dataLote) {
+    public void setDataLote(Calendar dataLote) {
         this.dataLote = dataLote;
     }
 }

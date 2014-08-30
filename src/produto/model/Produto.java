@@ -1,6 +1,6 @@
 package produto.model;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 import lote.model.Lote;
@@ -8,7 +8,7 @@ import material.model.Material;
 
 
 @Entity
-public class Produto {
+public class Produto implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

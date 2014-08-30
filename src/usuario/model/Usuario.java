@@ -2,34 +2,31 @@ package usuario.model;
 
 import Util.ReturnValidate;
 import Util.Util;
+import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.*;
+
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Usuario {
+@Table(name = "USUARIO")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="FROM_CLASS", discriminatorType = DiscriminatorType.STRING)
+public abstract class Usuario implements Serializable {
 
     @Id
-    @Column(name = "SUPER_CODIGO")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer codigo;
 
-    @Column(length = 255, name = "LOGIN", nullable = false)
+    /*@Column(length = 255, name = "LOGIN", nullable = false)*/
     private String login;
 
-    @Column(length = 255, name = "SENHA", nullable = false)
+    /*@Column(length = 255, name = "SENHA", nullable = false)*/
     private String senha;
 
     public Usuario() {
-        this.codigo = null;
+        /*this.codigo = null;
         this.login = new String();
-        this.senha = new String();
+        this.senha = new String();*/
     }
 
     public Integer getSuperCodigo() {

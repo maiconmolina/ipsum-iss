@@ -6,6 +6,7 @@
 
 package material.model;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 import produto.model.Produto;
@@ -15,7 +16,7 @@ import produto.model.Produto;
  * @author Maicon
  */
 @Entity
-public class Material{
+public class Material implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

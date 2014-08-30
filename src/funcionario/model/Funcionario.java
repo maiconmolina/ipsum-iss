@@ -3,22 +3,16 @@ package funcionario.model;
 import Util.ReturnValidate;
 import Util.Util;
 import java.io.Serializable;
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.*;
 import usuario.model.Usuario;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "SUPER_CODIGO")
 public class Funcionario extends Usuario implements Serializable {
 
     @Id
-    @Column(name = "CODIGO")
+    //@Column(name = "CODIGO")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer codigo;
 
@@ -29,7 +23,8 @@ public class Funcionario extends Usuario implements Serializable {
     private double salario;
 
     @Column(name = "DATA_NASCIMENTO", nullable = false)
-    private GregorianCalendar dataNascimento;
+    @Temporal(TemporalType.DATE)
+    private Calendar dataNascimento;
 
     @Column(length = 11, name = "CPF", nullable = false)
     private String cpf;
@@ -57,9 +52,9 @@ public class Funcionario extends Usuario implements Serializable {
 
     public Funcionario() {
         super();
-        this.codigo = null;
+        /*this.codigo = null;
         this.nome = new String();
-        this.dataNascimento = new GregorianCalendar();
+        this.dataNascimento = Calendar.getInstance();
         this.cpf = new String();
         this.rg = new String();
         this.temporario = false;
@@ -67,7 +62,7 @@ public class Funcionario extends Usuario implements Serializable {
         this.endereco = new String();
         this.funcao = Funcoes.COSTUREIRO;
         this.nivel = NivelHabilidade.INICIANTE;
-        this.ativo = true;
+        this.ativo = true;*/
     }
 
     public Integer getCodigo() {
@@ -103,11 +98,11 @@ public class Funcionario extends Usuario implements Serializable {
         }
     }
 
-    public GregorianCalendar getDataNascimento() {
+    public Calendar getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(GregorianCalendar dataNascimento) {
+    public void setDataNascimento(Calendar dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
