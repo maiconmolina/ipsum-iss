@@ -9,24 +9,24 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "USUARIO")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name="FROM_CLASS", discriminatorType = DiscriminatorType.STRING)
-public abstract class Usuario implements Serializable {
+public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer codigo;
 
-    /*@Column(length = 255, name = "LOGIN", nullable = false)*/
+    @Column(length = 255, name = "LOGIN", nullable = false)
     private String login;
 
-    /*@Column(length = 255, name = "SENHA", nullable = false)*/
+    @Column(length = 255, name = "SENHA", nullable = false)
     private String senha;
 
     public Usuario() {
-        /*this.codigo = null;
+        this.codigo = null;
         this.login = new String();
-        this.senha = new String();*/
+        this.senha = new String();
     }
 
     public Integer getSuperCodigo() {

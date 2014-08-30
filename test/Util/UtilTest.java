@@ -48,7 +48,7 @@ public class UtilTest extends TestCase {
     public void testStringToGregorian() {
         System.out.println("StringToGregorian");
         GregorianCalendar gc = new GregorianCalendar(1994, 10, 18);
-        GregorianCalendar teste = Util.StringToGregorian("18/10/1994");
+        Calendar teste = Util.StringToCalendar("18/10/1994");
         assertEquals(gc.get(Calendar.DAY_OF_MONTH), teste.get(Calendar.DAY_OF_MONTH));
         assertEquals(gc.get(Calendar.MONTH), teste.get(Calendar.MONTH));
         assertEquals(gc.get(Calendar.YEAR), teste.get(Calendar.YEAR));
@@ -56,13 +56,13 @@ public class UtilTest extends TestCase {
 
     public void testStringToGregorianError() {
         System.out.println("StringToGregorianError");
-        GregorianCalendar date = Util.StringToGregorian("32/08/2014");
+        Calendar date = Util.StringToCalendar("32/08/2014");
         assertEquals(null, date);
     }
     
     public void testStringToGregorianVazio() {
         System.out.println("StringToGregorianVazio");
-        GregorianCalendar date = Util.StringToGregorian("  /  /    ");
+        Calendar date = Util.StringToCalendar("  /  /    ");
         assertEquals(null, date);
     }
     

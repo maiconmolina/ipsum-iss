@@ -27,6 +27,25 @@ public class FuncionarioCadastro extends javax.swing.JInternalFrame {
         initComponents();
 
     }
+    
+    public FuncionarioCadastro(Funcionario func){
+        initComponents();
+        jTextField3.setText(func.getNome());
+        //DataNasc
+        jFormattedTextField2.setText(func.getCpf());
+        jTextField6.setText(func.getRg());
+        jFormattedTextField3.setText(func.getTelefone());
+        jTextField2.setText(func.getEndereco());
+        jComboBox1.setSelectedItem(func.getFuncao());
+        jTextField8.setText(func.getSalario().toString());
+        jTextField9.setText(func.getLogin());
+        jPasswordField1.setText(func.getSenha());
+        jPasswordField2.setText(func.getSenha());
+        jCheckBox1.setSelected(func.isTemporario());
+        
+        jButton1.setText("Editar");
+        jTextField9.setEditable(false);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -249,7 +268,7 @@ public class FuncionarioCadastro extends javax.swing.JInternalFrame {
         if (Util.isNullOrEmpty(jTextField3.getText())) {
             retorno += "Campo 'Nome' não pode ser vazio\n";
         }
-        if (Util.StringToGregorian(jFormattedTextField1.getText()) == null) {
+        if (Util.StringToCalendar(jFormattedTextField1.getText()) == null) {
             retorno += "Campo 'Data Nasc.' inválido\n";
         }
         if (!Util.ValidateCpf(jFormattedTextField2.getText())) {
