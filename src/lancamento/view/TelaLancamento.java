@@ -126,6 +126,7 @@ public class TelaLancamento extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(this, retorno.getMessage());
         }
+        
     }//GEN-LAST:event_salvarActionPerformed
 
     private void descricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descricaoActionPerformed
@@ -177,3 +178,4 @@ public class TelaLancamento extends javax.swing.JInternalFrame {
     private javax.swing.JTextField valor;
     // End of variables declaration//GEN-END:variables
 }
+
