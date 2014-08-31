@@ -1,5 +1,6 @@
 package caixa.model;
 
+import Util.ReturnValidate;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import lancamento.controller.LancamentoController;
 import lancamento.model.Lancamento;
 
 @Entity
 @Table(name = "Caixa")
-public class Caixa implements Serializable{
+public class Caixa implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,9 +28,9 @@ public class Caixa implements Serializable{
 
     @Column(length = 1, name = "STATUS", nullable = false)
     private static StatusCaixa status;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Lancamento> lancamentos = new ArrayList<Lancamento>();
+//
+//    @OneToMany(cascade = CascadeType.ALL)
+//    private List<Lancamento> lancamentos = new ArrayList<Lancamento>();
 
     public Caixa() {
         super();
@@ -43,11 +45,19 @@ public class Caixa implements Serializable{
     }
 
     public static double getSaldo() {
+        saldo = 0;
+        List<Lancamento> lancamentos = LancamentoController.busca();
+//            saldo = saldo + lanc.getValor();
+        for (Lancamento lanc : lancamentos) {
+            if (lanc.getTipo().toString().equals("Entrada")) {
+                saldo = saldo + lanc.getValor();
+            } else {
+                if (lanc.getTipo().toString().equals("Saída")) {
+                    saldo = saldo - lanc.getValor();
+                }
+            }
+        }
         return saldo;
-    }
-
-    public static void setSaldo(double saldo) {
-        Caixa.saldo = saldo;
     }
 
     public static StatusCaixa getStatus() {
@@ -56,6 +66,19 @@ public class Caixa implements Serializable{
 
     public static void setStatus(StatusCaixa status) {
         Caixa.status = status;
+    }
+
+    public ReturnValidate save() {
+        ReturnValidate validacao = this.isValid();
+        if (validacao.isValid()) {
+            CaixaDAOImpl caixa = new CaixaDAOImpl();
+            caixa.save(this);
+        }
+        return validacao;
+    }
+
+    public ReturnValidate isValid() {
+        return new ReturnValidate("");
     }
 
 }

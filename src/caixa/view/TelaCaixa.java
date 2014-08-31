@@ -6,7 +6,7 @@
 package caixa.view;
 
 import Util.InterfaceUtils;
-import lancamento.view.TelaLancamento;
+import caixa.model.Caixa;
 import ipsum.view.TelaStart;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import lancamento.controller.LancamentoController;
 import lancamento.model.Lancamento;
+import lancamento.view.TelaLancamento;
 
 /**
  *
@@ -88,7 +89,8 @@ public class TelaCaixa extends javax.swing.JInternalFrame {
         jLabel1.setText("Lançamentos: 0");
 
         saldo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        saldo.setText("Saldo: R$ 0,00");
+        Caixa caixa = new  Caixa();
+        saldo.setText("Saldo: R$"+Double.toString(caixa.getSaldo()));
 
         jButton4.setText("Alterar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
