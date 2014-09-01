@@ -13,7 +13,8 @@ public abstract class DAOImpl<T, I extends Serializable> implements DAO<T, I> {
     public T save(T entity) {
 
         T saved = null;
-
+        
+        
         getEntityManager().getTransaction().begin();
         saved = getEntityManager().merge(entity);
         getEntityManager().getTransaction().commit();
@@ -23,6 +24,7 @@ public abstract class DAOImpl<T, I extends Serializable> implements DAO<T, I> {
 
     @Override
     public void remove(T entity) {
+        
         getEntityManager().getTransaction().begin();
         getEntityManager().remove(entity);
         getEntityManager().getTransaction().commit();
@@ -38,6 +40,13 @@ public abstract class DAOImpl<T, I extends Serializable> implements DAO<T, I> {
             return null;
         }
 
+    }
+    
+    @Override
+    public void refresh(Object entity){
+        /*getEntityManager().getTransaction().rollback();
+        getEntityManager().getTransaction().begin();*/
+        getEntityManager().refresh(entity);
     }
 
     @SuppressWarnings("unchecked")

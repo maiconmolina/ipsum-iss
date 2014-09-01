@@ -1,15 +1,20 @@
 package lote.model;
 
 
+import funcionario.model.Funcionario;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
-import produto.model.Produto;
 import javax.persistence.*;
+import produto.model.Produto;
 
 
 @Entity
 public class Lote implements Serializable {
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,13 +38,19 @@ public class Lote implements Serializable {
     @Column(name = "dataLote")
     @Temporal(TemporalType.DATE)
     private Calendar dataLote;
+    
+    @ManyToMany //Mapeamento bidirecional
+    @JoinTable(name="FUNCIONARIOS_DO_LOTE", joinColumns={@JoinColumn(name="COD_LOTE")}, inverseJoinColumns={@JoinColumn(name="COD_FUNC")})
+    private List<Funcionario> funcionarios; 
 
     public Integer getCodigo() {
         return codigo;
     }
 
     public void setCodigo(Integer codigo) {
+        Integer oldCodigo = this.codigo;
         this.codigo = codigo;
+        changeSupport.firePropertyChange("codigo", oldCodigo, codigo);
     }
 
     public List<Produto> getProdutos() {
@@ -55,6 +66,16 @@ public class Lote implements Serializable {
     }
 
     public void setDataLote(Calendar dataLote) {
+        Calendar oldDataLote = this.dataLote;
         this.dataLote = dataLote;
+        changeSupport.firePropertyChange("dataLote", oldDataLote, dataLote);
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
 }

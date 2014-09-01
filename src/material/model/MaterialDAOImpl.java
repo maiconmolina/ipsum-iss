@@ -13,5 +13,10 @@ import persistencia.DAOImpl;
  * @author Maicon
  */
 public class MaterialDAOImpl extends DAOImpl<Material, Integer> implements MaterialDAO{
+
+    
+    public Material getById(Integer pk) {
+        return super.getById(Material.class, pk);
+    }
     
 }

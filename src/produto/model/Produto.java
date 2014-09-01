@@ -1,5 +1,7 @@
 package produto.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
@@ -9,6 +11,8 @@ import material.model.Material;
 
 @Entity
 public class Produto implements Serializable {
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,7 +48,9 @@ public class Produto implements Serializable {
     }
 
     public void setCodigo(Integer codigo) {
+        Integer oldCodigo = this.codigo;
         this.codigo = codigo;
+        changeSupport.firePropertyChange("codigo", oldCodigo, codigo);
     }
 
     public String getDescricao() {
@@ -52,7 +58,9 @@ public class Produto implements Serializable {
     }
 
     public void setDescricao(String descricao) {
+        String oldDescricao = this.descricao;
         this.descricao = descricao;
+        changeSupport.firePropertyChange("descricao", oldDescricao, descricao);
     }
 
     public Double getPreco() {
@@ -60,7 +68,9 @@ public class Produto implements Serializable {
     }
 
     public void setPreco(Double preco) {
+        Double oldPreco = this.preco;
         this.preco = preco;
+        changeSupport.firePropertyChange("preco", oldPreco, preco);
     }
 
     public List<Material> getMateriais() {
@@ -76,7 +86,9 @@ public class Produto implements Serializable {
     }
 
     public void setAtivo(Boolean ativo) {
+        Boolean oldAtivo = this.ativo;
         this.ativo = ativo;
+        changeSupport.firePropertyChange("ativo", oldAtivo, ativo);
     }
 
     public List<Lote> getLotes() {
@@ -85,6 +97,14 @@ public class Produto implements Serializable {
 
     public void setLotes(List<Lote> lotes) {
         this.lotes = lotes;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
             
 }

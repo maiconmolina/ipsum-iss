@@ -13,6 +13,8 @@ public interface DAO<T, I extends Serializable> {
     public T getById(Class<T> classe, I pk);
 
     public List<T> getAll(Class<T> classe);
+    
+    public void refresh(T entity);
 
     public EntityManager getEntityManager();
 

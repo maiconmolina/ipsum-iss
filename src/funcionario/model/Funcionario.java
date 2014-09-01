@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.*;
+import lote.model.Lote;
 import usuario.model.Usuario;
 
 @Entity
@@ -13,6 +14,7 @@ public class Funcionario extends Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "COD_FUNC") // wilde tive que colocar isso para fazer o relacionamento Lote x Funcionario
     private Integer codigo;
 
     @Column(length = 255, name = "NOME", nullable = false)
@@ -48,6 +50,9 @@ public class Funcionario extends Usuario implements Serializable {
 
     @Column(name = "ATIVO", nullable = false)
     private Boolean ativo;
+    
+    @ManyToMany(mappedBy = "funcionarios")
+    private List<Lote> lotes; // wilde tive que colocar isso para fazer o relacionamento Lote x Funcionario
 
     public Funcionario() {
         super();
