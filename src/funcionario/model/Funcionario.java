@@ -1,5 +1,6 @@
 package funcionario.model;
 
+import Util.RemovableLogically;
 import Util.ReturnValidate;
 import Util.Util;
 import java.io.Serializable;
@@ -10,12 +11,7 @@ import lote.model.Lote;
 import usuario.model.Usuario;
 
 @Entity
-public class Funcionario extends Usuario implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "COD_FUNC") // wilde tive que colocar isso para fazer o relacionamento Lote x Funcionario
-    private Integer codigo;
+public class Funcionario extends Usuario implements Serializable, RemovableLogically {
 
     @Column(length = 255, name = "NOME", nullable = false)
     private String nome;
@@ -50,13 +46,12 @@ public class Funcionario extends Usuario implements Serializable {
 
     @Column(name = "ATIVO", nullable = false)
     private Boolean ativo;
-    
+
     @ManyToMany(mappedBy = "funcionarios")
     private List<Lote> lotes; // wilde tive que colocar isso para fazer o relacionamento Lote x Funcionario
 
     public Funcionario() {
         super();
-        this.codigo = null;
         this.nome = new String();
         this.dataNascimento = Calendar.getInstance();
         this.cpf = new String();
@@ -68,14 +63,6 @@ public class Funcionario extends Usuario implements Serializable {
         this.nivel = NivelHabilidade.INICIANTE;
         this.ativo = true;
         this.salario = 0.0;
-    }
-
-    public Integer getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
     }
 
     public String getNome() {
@@ -173,6 +160,7 @@ public class Funcionario extends Usuario implements Serializable {
         this.funcao = funcao;
     }
 
+    @Override
     public Boolean isAtivo() {
         return ativo;
     }
@@ -222,4 +210,83 @@ public class Funcionario extends Usuario implements Serializable {
         }
         return validacao;
     }
+
+    @Override
+    public ReturnValidate inativar() {
+        this.ativo = false;
+        return this.save();
+    }
+
+    @Override
+    public ReturnValidate reativar() {
+        this.ativo = true;
+        return this.save();
+    }
+
+    public static List<Funcionario> getAll() {
+        FuncionarioDaoImpl func = new FuncionarioDaoImpl();
+        return func.getAll(Funcionario.class);
+    }
+
+    public static List<Funcionario> getAllActive() {
+        FuncionarioDaoImpl func = new FuncionarioDaoImpl();
+        return func.getAllActive();
+    }
+
+    @Override
+    public String toString() {
+        return this.nome;
+    }
+
+    public String getTelefoneMasked() {
+        String retorno = "";
+        String fone = this.telefone;
+        retorno += '(';
+        retorno += fone.substring(0, 2);
+        retorno += ')';
+        retorno += fone.substring(2, 6);
+        retorno += '-';
+        retorno += fone.substring(6);
+
+        return retorno;
+    }
+
+    public String getCpfMasked() {
+        String retorno = "";
+        String c = this.cpf;
+        retorno += c.substring(0, 3);
+        retorno += '.';
+        retorno += c.substring(3, 6);
+        retorno += '.';
+        retorno += c.substring(6, 9);
+        retorno += '-';
+        retorno += c.substring(9);
+        return retorno;
+    }
+
+    public static Funcionario getByCodigo(Integer codigo) {
+        FuncionarioDaoImpl func = new FuncionarioDaoImpl();
+        return func.getById(Funcionario.class, codigo);
+    }
+
+    /*public void print() {
+     //Função de testes
+     System.out.println(
+     "\n\nCodigo: " + super.getCodigo()
+     + "\nLogin: " + super.getLogin()
+     + "\nSenha: " + super.getSenha()
+     + "\nNome: " + this.nome
+     + "\nSalário: " + this.salario
+     + "\nDataNasc: " + Util.CalendarToString(dataNascimento)
+     + "\nCpf: " + this.cpf
+     + "\nRg: " + this.rg
+     + "\nTemporario: " + this.temporario
+     + "\nTelefone: " + this.telefone
+     + "\nEndereço: " + this.endereco
+     + "\nFunção: " + this.funcao
+     + "\nNível: " + this.nivel
+     + "\nAtivo: " + this.ativo
+     + "\n\n"
+     );
+     }*/
 }

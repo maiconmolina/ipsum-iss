@@ -6,15 +6,15 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "USUARIO")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name="FROM_CLASS", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "FROM_CLASS", discriminatorType = DiscriminatorType.STRING)
 public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "SUPER_CODIGO")
     private Integer codigo;
 
     @Column(length = 255, name = "LOGIN", nullable = false)
@@ -29,11 +29,11 @@ public class Usuario implements Serializable {
         this.senha = new String();
     }
 
-    public Integer getSuperCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
-    public void setSuperCodigo(Integer codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
 
@@ -42,7 +42,7 @@ public class Usuario implements Serializable {
     }
 
     public void setLogin(String login) {
-        this.login = login;
+        this.login = login.toLowerCase();
     }
 
     public String getSenha() {
@@ -87,7 +87,7 @@ public class Usuario implements Serializable {
             }
         } else {
             for (Usuario u : users) {
-                if (u.getLogin().equals(this.getLogin()) && !this.getSuperCodigo().equals(u.getSuperCodigo())) {
+                if (u.getLogin().equals(this.getLogin()) && !this.getCodigo().equals(u.getCodigo())) {
                     return false;
                 }
             }

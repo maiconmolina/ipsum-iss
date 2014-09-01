@@ -47,7 +47,7 @@ public class UtilTest extends TestCase {
 
     public void testStringToGregorian() {
         System.out.println("StringToGregorian");
-        GregorianCalendar gc = new GregorianCalendar(1994, 10, 18);
+        GregorianCalendar gc = new GregorianCalendar(1994, 9, 18);
         Calendar teste = Util.StringToCalendar("18/10/1994");
         assertEquals(gc.get(Calendar.DAY_OF_MONTH), teste.get(Calendar.DAY_OF_MONTH));
         assertEquals(gc.get(Calendar.MONTH), teste.get(Calendar.MONTH));
@@ -147,5 +147,11 @@ public class UtilTest extends TestCase {
     public void testIsNullOrEmptyFalse(){
         System.out.println("IsNullOrEmptyFalse");
         assertFalse(Util.isNullOrEmpty("Teste"));
+    }
+    
+    public void testCalendarToStringTrue(){
+        System.out.println("CalendarToStringTest");
+        Calendar date = Util.StringToCalendar("12/12/2012");
+        assertEquals("12122012", Util.CalendarToString(date));
     }
 }

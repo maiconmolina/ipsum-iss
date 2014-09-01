@@ -7,17 +7,10 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import usuario.model.Usuario;
 
 @Entity
 public class Fornecedor extends Usuario implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer codigo;
     
     @Column (length = 14, name = "CNPJ")
     private String cnpj;
@@ -54,7 +47,6 @@ public class Fornecedor extends Usuario implements Serializable {
     
     public Fornecedor() {
         super();
-        this.codigo = null;
         this.cnpj = new String();
         this.fantasia = new String();
         this.razao = new String();
@@ -66,14 +58,6 @@ public class Fornecedor extends Usuario implements Serializable {
         this.cep = new String();
         this.email = new String();
         this.ativo = true;
-    }
-
-    public Integer getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
     }
 
     public String getCnpj() {

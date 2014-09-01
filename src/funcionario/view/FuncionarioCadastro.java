@@ -20,18 +20,21 @@ import javax.swing.JOptionPane;
  */
 public class FuncionarioCadastro extends javax.swing.JInternalFrame {
 
+    private Integer codigo = null;
+    private Boolean ativo;
+
     /**
      * Creates new form FuncionarioCadastro
      */
     public FuncionarioCadastro() {
         initComponents();
-
+        jButton2.setVisible(false);
     }
-    
-    public FuncionarioCadastro(Funcionario func){
+
+    public FuncionarioCadastro(Funcionario func) {
         initComponents();
         jTextField3.setText(func.getNome());
-        //DataNasc
+        jFormattedTextField1.setText(Util.CalendarToString(func.getDataNascimento()));
         jFormattedTextField2.setText(func.getCpf());
         jTextField6.setText(func.getRg());
         jFormattedTextField3.setText(func.getTelefone());
@@ -42,9 +45,15 @@ public class FuncionarioCadastro extends javax.swing.JInternalFrame {
         jPasswordField1.setText(func.getSenha());
         jPasswordField2.setText(func.getSenha());
         jCheckBox1.setSelected(func.isTemporario());
-        
+
+        this.codigo = func.getCodigo();
+        this.ativo = func.isAtivo();
+
         jButton1.setText("Editar");
         jTextField9.setEditable(false);
+        jButton2.setText(func.isAtivo() ? "Inativar" : "Reativar");
+        jButton1.setEnabled(func.isAtivo());
+        this.setEditableScreen(func.isAtivo());
     }
 
     /**
@@ -80,6 +89,7 @@ public class FuncionarioCadastro extends javax.swing.JInternalFrame {
         jFormattedTextField2 = new javax.swing.JFormattedTextField(Constante.CpfMask);
         jFormattedTextField3 = new javax.swing.JFormattedTextField(Constante.TelefoneMask);
         jComboBox1 = new javax.swing.JComboBox();
+        jButton2 = new javax.swing.JButton();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -120,6 +130,13 @@ public class FuncionarioCadastro extends javax.swing.JInternalFrame {
 
         jLabel11.setText("Confirmar senha:");
 
+        jButton2.setText("Inativar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -144,7 +161,9 @@ public class FuncionarioCadastro extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jCheckBox1)
-                        .addGap(398, 398, 398)
+                        .addGap(319, 319, 319)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1))
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -221,7 +240,8 @@ public class FuncionarioCadastro extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jCheckBox1))
+                    .addComponent(jCheckBox1)
+                    .addComponent(jButton2))
                 .addContainerGap())
         );
 
@@ -233,9 +253,10 @@ public class FuncionarioCadastro extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
         if (Arrays.equals(jPasswordField1.getPassword(), jPasswordField2.getPassword())) {
             ReturnValidate validacaoView = this.validaFuncionarioView();
-            if (validacaoView.isValid()){
+            if (validacaoView.isValid()) {
                 Funcionario func = new Funcionario();
 
                 func.setNome(jTextField3.getText());
@@ -249,6 +270,9 @@ public class FuncionarioCadastro extends javax.swing.JInternalFrame {
                 func.setLogin(jTextField9.getText());
                 func.setSenha(jPasswordField1.getPassword());
                 func.setTemporario(jCheckBox1.isSelected());
+
+                func.setCodigo(this.codigo);
+
                 ReturnValidate retorno = FuncionarioController.InsereFuncionario(func);
                 if (retorno.isValid()) {
                     this.dispose();
@@ -262,6 +286,26 @@ public class FuncionarioCadastro extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "As senhas não conferem!");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (ativo) {
+            if (JOptionPane.showConfirmDialog(this, "Deseja mesmo inativar?") == 0) {
+                ReturnValidate retorno = FuncionarioController.Inativar(this.codigo);
+                if (retorno.isValid()) {
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Um erro ocorreu!\n" + retorno.getMessage());
+                }
+            }
+        } else {
+            ReturnValidate retorno = FuncionarioController.Reativar(this.codigo);
+            if (retorno.isValid()) {
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Um erro ocorreu!\n" + retorno.getMessage());
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private ReturnValidate validaFuncionarioView() {
         String retorno = "";
@@ -293,6 +337,20 @@ public class FuncionarioCadastro extends javax.swing.JInternalFrame {
         }
 
         return new ReturnValidate(retorno);
+    }
+
+    private void setEditableScreen(Boolean editable) {
+        jTextField3.setEditable(editable);
+        jFormattedTextField1.setEditable(editable);
+        jFormattedTextField2.setEditable(editable);
+        jTextField6.setEditable(editable);
+        jFormattedTextField3.setEditable(editable);
+        jTextField2.setEditable(editable);
+        jComboBox1.setEnabled(editable);
+        jTextField8.setEditable(editable);
+        jPasswordField1.setEditable(editable);
+        jPasswordField2.setEditable(editable);
+        jCheckBox1.setEnabled(editable);
     }
 
     /**
@@ -332,6 +390,7 @@ public class FuncionarioCadastro extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JFormattedTextField jFormattedTextField1;
@@ -356,4 +415,5 @@ public class FuncionarioCadastro extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -1,7 +1,6 @@
 package Util;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import javax.swing.text.MaskFormatter;
 
 public class Util {
@@ -139,7 +138,7 @@ public class Util {
         Calendar gc = Calendar.getInstance();
         gc.setLenient(false);
         gc.set(Calendar.DAY_OF_MONTH, dia);
-        gc.set(Calendar.MONTH, mes);
+        gc.set(Calendar.MONTH, mes - 1);
         gc.set(Calendar.YEAR, ano);
         try {
             gc.getTime();
@@ -165,5 +164,19 @@ public class Util {
     
     public static boolean isNullOrEmpty(String str){
         return str == null || str.equals("");
+    }
+
+    public static String CalendarToString(Calendar date) {
+        String retorno = "";
+        if (date == null) {
+            return retorno;
+        }
+
+        retorno += date.get(Calendar.DAY_OF_MONTH);
+        int mes = date.get(Calendar.MONTH) + 1;
+        retorno += mes;
+        retorno += date.get(Calendar.YEAR);
+
+        return retorno;
     }
 }
