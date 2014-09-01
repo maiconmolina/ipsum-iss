@@ -32,6 +32,9 @@ public class Lancamento implements Serializable {
     @Column(length = 500, name = "DESCRICAO", nullable = false)
     private String descricao;
 
+//    @Column(length = 1, name = "ATIVO", nullable = false)
+//    private boolean ativo;
+
     public Lancamento() {
         super();
     }
@@ -99,4 +102,12 @@ public class Lancamento implements Serializable {
     public ReturnValidate isValid() {
         return new ReturnValidate("");
     }
+
+//    public boolean isAtivo() {
+//        return ativo;
+//    }
+//
+//    public void setAtivo(boolean ativo) {
+//        this.ativo = ativo;
+//    }
 }

@@ -22,4 +22,9 @@ public class LancamentoController {
         return lanc.getAll(Lancamento.class);
     }
 
+    public static Lancamento buscaId(String id) {
+        LancamentoDAOImpl lanc = new LancamentoDAOImpl();
+        return lanc.getById(Lancamento.class, Integer.parseInt(id));
+    }
+
 }
