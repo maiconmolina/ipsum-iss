@@ -5,6 +5,7 @@
  */
 package funcionario.view;
 
+import Util.Util;
 import funcionario.controller.FuncionarioController;
 import funcionario.model.Funcionario;
 import ipsum.view.TelaStart;
@@ -25,16 +26,7 @@ public class FuncionarioConsulta extends javax.swing.JInternalFrame {
     public FuncionarioConsulta() {
         initComponents();
         List<Funcionario> funcAtivos = FuncionarioController.getUsuariosAtivos();
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        List<Object> dados = new ArrayList<>();
-        for (Funcionario f : funcAtivos) {
-            dados.add(f);
-            dados.add(f.getCpfMasked());
-            dados.add(f.getFuncao());
-            dados.add(f.getTelefoneMasked());
-            model.addRow(dados.toArray());
-            dados.clear();
-        }
+        this.insereTabela(funcAtivos);
     }
 
     /**
@@ -49,12 +41,12 @@ public class FuncionarioConsulta extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
         jButton2 = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -93,7 +85,7 @@ public class FuncionarioConsulta extends javax.swing.JInternalFrame {
         });
 
         jCheckBox1.setSelected(true);
-        jCheckBox1.setText("Ativo");
+        jCheckBox1.setText("Somente Ativos");
 
         jButton2.setText("Pesquisar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -138,14 +130,14 @@ public class FuncionarioConsulta extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCheckBox1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -167,9 +159,65 @@ public class FuncionarioConsulta extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        List<Funcionario> dados = this.listaDados();
+        this.insereTabela(dados);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private List<Funcionario> listaDados() {
+        List<Funcionario> dados;
+        List<Funcionario> listagem = new ArrayList<>();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setNumRows(0);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        if (jCheckBox1.isSelected()) {
+            dados = FuncionarioController.getUsuariosAtivos();
+        } else {
+            dados = FuncionarioController.getUsuarios();
+        }
+        if (Util.isNullOrEmpty(jTextField1.getText()) && Util.isNullOrEmpty(jTextField2.getText())) {
+            //pesquisa default
+            listagem = dados;
+        } else {
+            if (!Util.isNullOrEmpty(jTextField1.getText()) && Util.isNullOrEmpty(jTextField2.getText())) {
+                //Pesquisa por nome
+                for (Funcionario f : dados) {
+                    if (f.getNome().toLowerCase().contains(jTextField1.getText().toLowerCase())) {
+                        listagem.add(f);
+                    }
+                }
+            } else {
+                if (Util.isNullOrEmpty(jTextField1.getText()) && !Util.isNullOrEmpty(jTextField2.getText())) {
+                    //Pesquisa por CPF, exata
+                    for (Funcionario f : dados) {
+                        if (f.getCpf().equals(jTextField2.getText().replace(".", "").replace("-", ""))) {
+                            listagem.add(f);
+                        }
+                    }
+                } else {
+                    //Pesquisa por ambos
+                    for (Funcionario f : dados) {
+                        if (f.getNome().toLowerCase().contains(jTextField1.getText().toLowerCase())
+                                && f.getCpf().equals(jTextField2.getText().replace(".", "").replace("-", ""))) {
+                            listagem.add(f);
+                        }
+                    }
+                }
+            }
+        }
+        return listagem;
+    }
+
+    private void insereTabela(List<Funcionario> data) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        List<Object> dados = new ArrayList<>();
+        for (Funcionario f : data) {
+            dados.add(f);
+            dados.add(f.getCpfMasked());
+            dados.add(f.getFuncao());
+            dados.add(f.getTelefoneMasked());
+            model.addRow(dados.toArray());
+            dados.clear();
+        }
+    }
 
     /**
      * @param args the command line arguments

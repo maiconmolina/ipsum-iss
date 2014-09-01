@@ -23,4 +23,8 @@ public class FuncionarioController {
         Funcionario func = Funcionario.getByCodigo(codigo);
         return func.reativar();
     }
+
+    public static List<Funcionario> getUsuarios() {
+        return Funcionario.getAll();
+    }
 }
