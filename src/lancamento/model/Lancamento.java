@@ -7,12 +7,15 @@ package lancamento.model;
 
 import Util.ReturnValidate;
 import java.io.Serializable;
+import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Lancamento")
@@ -32,9 +35,11 @@ public class Lancamento implements Serializable {
     @Column(length = 500, name = "DESCRICAO", nullable = false)
     private String descricao;
 
+    @Temporal(TemporalType.DATE)
+    private Calendar data;
+
 //    @Column(length = 1, name = "ATIVO", nullable = false)
 //    private boolean ativo;
-
     public Lancamento() {
         super();
     }
@@ -110,4 +115,12 @@ public class Lancamento implements Serializable {
 //    public void setAtivo(boolean ativo) {
 //        this.ativo = ativo;
 //    }
+
+    public Calendar getData() {
+        return data;
+    }
+
+    public void setData(Calendar data) {
+        this.data = data;
+    }
 }

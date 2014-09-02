@@ -47,7 +47,6 @@ public class Caixa implements Serializable {
     public static double getSaldo() {
         saldo = 0;
         List<Lancamento> lancamentos = LancamentoController.busca();
-//            saldo = saldo + lanc.getValor();
         for (Lancamento lanc : lancamentos) {
             if (lanc.getTipo().toString().equals("Entrada")) {
                 saldo = saldo + lanc.getValor();
