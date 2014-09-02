@@ -30,7 +30,9 @@ public class ProdutoCRUDView extends javax.swing.JInternalFrame {
 
         produtoCRUD1 = new produto.view.ProdutoCRUD();
 
+        setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Produtos");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
