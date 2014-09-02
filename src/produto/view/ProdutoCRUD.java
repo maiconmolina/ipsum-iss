@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package produto.view;
 
 import ipsum.view.TelaStart;
@@ -16,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import produto.controller.ProdutoController;
 import produto.model.Produto;
 
 /**
@@ -23,12 +23,29 @@ import produto.model.Produto;
  * @author Maicon
  */
 public class ProdutoCRUD extends JPanel {
-    
+
     public ProdutoCRUD() {
         initComponents();
         if (!Beans.isDesignTime()) {
             entityManager.getTransaction().begin();
         }
+        masterTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int row = masterTable.rowAtPoint(evt.getPoint());
+                int col = masterTable.columnAtPoint(evt.getPoint());
+                if (row >= 0 && col >= 0) {
+                    Object codProduto = masterTable.getModel().getValueAt(row, 0);
+                    Produto produto = ProdutoController.buscaId(codProduto.toString());
+                    ProdutoCadastro tl = new ProdutoCadastro(produto);
+                    TelaStart.addFrame(tl);
+                    tl.setLocation(10, 10);
+                    tl.setVisible(true);
+//                    EstaTela.dispose();
+                }
+
+            }
+        });
     }
 
     /**
@@ -211,8 +228,6 @@ public class ProdutoCRUD extends JPanel {
         }
     }// </editor-fold>//GEN-END:initComponents
 
-    
-
     @SuppressWarnings("unchecked")
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
         entityManager.getTransaction().rollback();
@@ -244,7 +259,7 @@ public class ProdutoCRUD extends JPanel {
         masterTable.setRowSelectionInterval(row, row);
         masterTable.scrollRectToVisible(masterTable.getCellRect(row, 0, true));
     }//GEN-LAST:event_newButtonActionPerformed
-    
+
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         try {
             entityManager.getTransaction().commit();
@@ -262,17 +277,7 @@ public class ProdutoCRUD extends JPanel {
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void detalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detalhesActionPerformed
-      try {
-            DefaultTableModel model = (DefaultTableModel) masterTable.getModel();
-            Produto prod = (Produto) model.getValueAt(masterTable.getSelectedRow(), 1);
-            ProdutoCadastro fc = new ProdutoCadastro(prod);
-            TelaStart.addFrame(fc);
-            fc.setLocation(10, 10);
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            JOptionPane.showMessageDialog(this, "Item selecionado inválido!");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Um erro aconteceu!\n" + ex.getMessage());
-        }
+
     }//GEN-LAST:event_detalhesActionPerformed
 
 
@@ -330,5 +335,5 @@ public class ProdutoCRUD extends JPanel {
             }
         });
     }
-    
+
 }

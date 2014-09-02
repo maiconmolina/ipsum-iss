@@ -106,4 +106,8 @@ public class Material implements Serializable{
         changeSupport.removePropertyChangeListener(listener);
     }
     
+    @Override
+    public String toString(){
+        return this.descricao;
+    }
 }

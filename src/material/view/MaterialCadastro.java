@@ -55,6 +55,12 @@ public class MaterialCadastro extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Preço Unitário:");
 
+        desc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                descActionPerformed(evt);
+            }
+        });
+
         jButton3.setText("Concluir");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,6 +127,10 @@ public class MaterialCadastro extends javax.swing.JInternalFrame {
         mcon.salvar(m);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void descActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_descActionPerformed
 
     /**
      * @param args the command line arguments

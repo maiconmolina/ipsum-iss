@@ -5,16 +5,11 @@
  */
 package caixa.view;
 
-import Util.InterfaceUtils;
 import caixa.controller.CaixaController;
-import caixa.model.Caixa;
 import ipsum.view.TelaStart;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.html.parser.DTDConstants;
 import lancamento.controller.LancamentoController;
 import lancamento.model.Lancamento;
 import lancamento.view.TelaLancamento;

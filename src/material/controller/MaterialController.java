@@ -6,6 +6,7 @@
 package material.controller;
 
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
 import material.model.Material;
@@ -54,6 +55,12 @@ public class MaterialController {
 
     public EntityManager getEM() {
         return dao.getEntityManager();
+    }
+    
+    
+    public static List<Material> busca() {
+        MaterialDAOImpl lanc = new MaterialDAOImpl();
+        return lanc.getAll(Material.class);
     }
 
 }
