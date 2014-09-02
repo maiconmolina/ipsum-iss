@@ -1,5 +1,6 @@
 package fornecedor.model;
 
+import Util.RemovableLogically;
 import Util.ReturnValidate;
 import Util.UfEnum;
 import Util.Util;
@@ -10,39 +11,39 @@ import javax.persistence.Entity;
 import usuario.model.Usuario;
 
 @Entity
-public class Fornecedor extends Usuario implements Serializable {
+public class Fornecedor extends Usuario implements Serializable, RemovableLogically {
     
-    @Column (length = 14, name = "CNPJ")
+    @Column (length = 14, name = "CNPJ", nullable = false)
     private String cnpj;
     
-    @Column (length = 200, name = "RAZAO")
+    @Column (length = 200, name = "RAZAO", nullable = false)
     private String razao;
     
-    @Column (length = 200, name = "FANTASIA")
+    @Column (length = 200, name = "FANTASIA", nullable = true)
     private String fantasia;
     
-    @Column (length = 20, name = "TELEFONE")
+    @Column (length = 20, name = "TELEFONE", nullable = false)
     private String telefone;
     
-    @Column (length = 200, name = "ENDERECO")
+    @Column (length = 200, name = "ENDERECO", nullable = false)
     private String endereço;
     
-    @Column (length = 10, name = "NUMERO")
+    @Column (length = 10, name = "NUMERO", nullable = false)
     private Integer numero;
     
-    @Column (name = "UF")
+    @Column (name = "UF", nullable = false)
     private UfEnum uf;
     
-    @Column (length = 200, name = "CIDADE")
+    @Column (length = 200, name = "CIDADE", nullable = false)
     private String cidade;
     
-    @Column (length = 8, name = "CEP")
+    @Column (length = 8, name = "CEP", nullable = false)
     private String cep;
     
-    @Column (length = 200, name= "EMAIL")
+    @Column (length = 200, name= "EMAIL", nullable = true)
     private String email;    
     
-    @Column (name = "ATIVO")
+    @Column (name = "ATIVO", nullable = false)
     private Boolean ativo;
     
     public Fornecedor() {
@@ -133,11 +134,11 @@ public class Fornecedor extends Usuario implements Serializable {
     }
 
     public String getCep() {
-        return cep.replace("-", "");
+        return this.cep;
     }
 
     public void setCep(String cep) {
-        this.cep = cep;
+        this.cep = cep.replace("-", "");
     }
 
     public String getEmail() {
@@ -195,5 +196,66 @@ public class Fornecedor extends Usuario implements Serializable {
             forn.save(this);
         }
         return validacao;
+    }
+
+    @Override
+    public ReturnValidate inativar() {
+        this.ativo = false;
+        return this.save();
+    }
+
+    @Override
+    public ReturnValidate reativar() {
+        this.ativo = true;
+        return this.save();
+    }
+    
+    public static List<Fornecedor> getAll() {
+        FornecedorDAOImpl forn = new FornecedorDAOImpl();
+        return forn.getAll(Fornecedor.class);
+    }
+
+    public static List<Fornecedor> getAllActive() {
+        FornecedorDAOImpl forn = new FornecedorDAOImpl();
+        return forn.getAllActive();
+    }
+    
+    @Override
+    public String toString() {
+        return this.razao;
+    }
+    
+    public String getTelefoneMasked() {
+        String retorno = "";
+        String fone = this.telefone;
+        retorno += '(';
+        retorno += fone.substring(0, 2);
+        retorno += ')';
+        retorno += fone.substring(2, 6);
+        retorno += '-';
+        retorno += fone.substring(6);
+
+        return retorno;
+    }
+    
+     public String getCNPJMasked() {
+        String retorno = "";
+        String c = this.cnpj;
+        retorno += c.substring(0, 2);
+        retorno += '.';
+        retorno += c.substring(2, 5);
+        retorno += '.';
+        retorno += c.substring(5, 8);
+        retorno += '/';
+        retorno += c.substring(8, 12);
+        retorno += '-';
+        retorno += c.substring(12);
+        return retorno;
+    }
+    
+    
+    public static Fornecedor getByCodigo(Integer codigo) {
+        FornecedorDAOImpl forn = new FornecedorDAOImpl();
+        return forn.getById(Fornecedor.class, codigo);
     }
 }

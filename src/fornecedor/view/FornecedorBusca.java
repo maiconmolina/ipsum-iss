@@ -6,7 +6,14 @@
 
 package fornecedor.view;
 
+import Util.Util;
+import fornecedor.controller.FornecedorController;
+import fornecedor.model.Fornecedor;
 import ipsum.view.TelaStart;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,6 +26,8 @@ public class FornecedorBusca extends javax.swing.JInternalFrame {
      */
     public FornecedorBusca() {
         initComponents();
+        List<Fornecedor> fornAtivos = FornecedorController.getUsuariosAtivos();
+        this.insereTabela(fornAtivos);
     }
 
     /**
@@ -31,15 +40,14 @@ public class FornecedorBusca extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         Razao = new javax.swing.JTextField();
-        Fantasia = new javax.swing.JTextField();
         CNPJ = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TabaleBusca = new javax.swing.JTable();
+        TabelaBusca = new javax.swing.JTable();
         Visualizar = new javax.swing.JButton();
-        MostrarInativos = new javax.swing.JCheckBox();
+        SomenteAtivos = new javax.swing.JCheckBox();
+        Pesquisar = new javax.swing.JButton();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -48,18 +56,12 @@ public class FornecedorBusca extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Razão:");
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("Fantasia:");
-
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("CNPJ:");
 
-        TabaleBusca.setModel(new javax.swing.table.DefaultTableModel(
+        TabelaBusca.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "CNPJ", "Razão", "Telefone"
@@ -73,7 +75,7 @@ public class FornecedorBusca extends javax.swing.JInternalFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(TabaleBusca);
+        jScrollPane1.setViewportView(TabelaBusca);
 
         Visualizar.setText("Visualizar");
         Visualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -82,10 +84,18 @@ public class FornecedorBusca extends javax.swing.JInternalFrame {
             }
         });
 
-        MostrarInativos.setText("Mostrar Inativos");
-        MostrarInativos.addActionListener(new java.awt.event.ActionListener() {
+        SomenteAtivos.setSelected(true);
+        SomenteAtivos.setText("Somente Ativos");
+        SomenteAtivos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MostrarInativosActionPerformed(evt);
+                SomenteAtivosActionPerformed(evt);
+            }
+        });
+
+        Pesquisar.setText("Pesquisar");
+        Pesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PesquisarActionPerformed(evt);
             }
         });
 
@@ -98,25 +108,23 @@ public class FornecedorBusca extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Visualizar)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                        .addGap(1, 1, 1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Razao)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Razao)
-                                    .addComponent(Fantasia)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(CNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(MostrarInativos))))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE))
-                        .addGap(1, 1, 1)))
-                .addContainerGap())
+                                .addComponent(CNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(SomenteAtivos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Pesquisar))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,35 +133,100 @@ public class FornecedorBusca extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(Razao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(Fantasia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
                     .addComponent(CNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MostrarInativos))
+                    .addComponent(jLabel3)
+                    .addComponent(SomenteAtivos)
+                    .addComponent(Pesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Visualizar)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void VisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisualizarActionPerformed
-        FornecedorCadastro fc = new FornecedorCadastro();
-        TelaStart.addFrame(fc);
-        fc.setLocation(10, 10);
-        fc.setVisible(true);
+         try {
+            DefaultTableModel model = (DefaultTableModel) TabelaBusca.getModel();
+            Fornecedor forn = (Fornecedor) model.getValueAt(TabelaBusca.getSelectedRow(), 1);
+            FornecedorCadastro fc = new FornecedorCadastro(forn);
+            TelaStart.addFrame(fc);
+            fc.setLocation(10, 10);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            JOptionPane.showMessageDialog(this, "Item selecionado inválido!");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Um erro aconteceu!\n" + ex.getMessage());
+        }
     }//GEN-LAST:event_VisualizarActionPerformed
 
-    private void MostrarInativosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarInativosActionPerformed
+     
+    private List<Fornecedor> listaDados() {
+        List<Fornecedor> dados;
+        List<Fornecedor> listagem = new ArrayList<>();
+        DefaultTableModel model = (DefaultTableModel) TabelaBusca.getModel();
+        model.setNumRows(0);
+        if (SomenteAtivos.isSelected()) {
+            dados = FornecedorController.getUsuariosAtivos();
+        } else {
+            dados = FornecedorController.getUsuarios();
+        }
+        if (Util.isNullOrEmpty(Razao.getText()) && Util.isNullOrEmpty(CNPJ.getText())) {
+            //pesquisa default
+            listagem = dados;
+        } else {
+            if (!Util.isNullOrEmpty(Razao.getText()) && Util.isNullOrEmpty(CNPJ.getText())) {
+                //Pesquisa por nome
+                for (Fornecedor f : dados) {
+                    if (f.getRazao().toLowerCase().contains(Razao.getText().toLowerCase())) {
+                        listagem.add(f);
+                    }
+                }
+            } else {
+                if (Util.isNullOrEmpty(Razao.getText()) && !Util.isNullOrEmpty(CNPJ.getText())) {
+                    //Pesquisa por CPF, exata
+                    for (Fornecedor f : dados) {
+                        if (f.getCnpj().equals(CNPJ.getText().replace(".", "").replace("-", "").replace("/", ""))) {
+                            listagem.add(f);
+                        }
+                    }
+                } else {
+                    //Pesquisa por ambos
+                    for (Fornecedor f : dados) {
+                        if (f.getRazao().toLowerCase().contains(Razao.getText().toLowerCase())
+                                && f.getCnpj().equals(CNPJ.getText().replace(".", "").replace("-", "").replace("/", ""))) {
+                            listagem.add(f);
+                        }
+                    }
+                }
+            }
+        }
+        return listagem;
+    }
+    
+    private void insereTabela(List<Fornecedor> data) {
+        DefaultTableModel model = (DefaultTableModel) TabelaBusca.getModel();
+        List<Object> dados = new ArrayList<>();
+        for (Fornecedor f : data) {
+            dados.add(f.getCNPJMasked());
+            dados.add(f);            
+            dados.add(f.getTelefoneMasked());
+            model.addRow(dados.toArray());
+            dados.clear();
+        }
+    }
+    
+    private void SomenteAtivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SomenteAtivosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_MostrarInativosActionPerformed
+    }//GEN-LAST:event_SomenteAtivosActionPerformed
+
+    private void PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PesquisarActionPerformed
+        List<Fornecedor> dados = this.listaDados();
+        this.insereTabela(dados);
+    }//GEN-LAST:event_PesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,13 +265,12 @@ public class FornecedorBusca extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CNPJ;
-    private javax.swing.JTextField Fantasia;
-    private javax.swing.JCheckBox MostrarInativos;
+    private javax.swing.JButton Pesquisar;
     private javax.swing.JTextField Razao;
-    private javax.swing.JTable TabaleBusca;
+    private javax.swing.JCheckBox SomenteAtivos;
+    private javax.swing.JTable TabelaBusca;
     private javax.swing.JButton Visualizar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

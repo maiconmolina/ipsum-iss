@@ -21,11 +21,41 @@ import javax.swing.JOptionPane;
  */
 public class FornecedorCadastro extends javax.swing.JInternalFrame {
 
+    private Integer codigo = null;
+    private Boolean ativo;
     /**
      * Creates new form FornecedorCadastro
      */
     public FornecedorCadastro() {
         initComponents();
+        Inativar.setVisible(false);
+    }
+    
+    public FornecedorCadastro(Fornecedor forn){
+        initComponents();
+        CNPJ.setText(forn.getCnpj());
+        RazaoSocial.setText(forn.getRazao());
+        Fantasia.setText(forn.getFantasia());
+        Telefone.setText(forn.getTelefone());
+        Endereco.setText(forn.getEndereço());
+        Numero.setText(forn.getNumero().toString());
+        UF.setSelectedItem(forn.getUf());
+        Cidade.setText(forn.getCidade());
+        CEP.setText(forn.getCep());
+        Email.setText(forn.getEmail());
+        Login.setText(forn.getLogin());
+        Senha.setText(forn.getSenha());
+        ConfirmarSenha.setText(forn.getSenha());
+        
+        this.codigo = forn.getCodigo();
+        this.ativo = forn.isAtivo();
+        
+        Salvar.setText("Editar");
+        Login.setEditable(false);
+        Inativar.setText(forn.isAtivo() ? "Inativar" : "Reativar");
+        Salvar.setEnabled(forn.isAtivo());
+        this.setEditableScreen(forn.isAtivo());
+        
     }
 
     /**
@@ -123,6 +153,11 @@ public class FornecedorCadastro extends javax.swing.JInternalFrame {
         });
 
         Inativar.setText("Inativar");
+        Inativar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InativarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -143,8 +178,9 @@ public class FornecedorCadastro extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(Inativar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Salvar))
                     .addComponent(RazaoSocial)
                     .addComponent(Fantasia)
@@ -163,16 +199,15 @@ public class FornecedorCadastro extends javax.swing.JInternalFrame {
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(UF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(CEP, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(Cidade, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(Telefone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                                .addComponent(CNPJ, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addComponent(Telefone, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                            .addComponent(CNPJ))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -234,7 +269,7 @@ public class FornecedorCadastro extends javax.swing.JInternalFrame {
                     .addComponent(Senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
                     .addComponent(ConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Salvar)
                     .addComponent(Inativar))
@@ -262,47 +297,76 @@ public class FornecedorCadastro extends javax.swing.JInternalFrame {
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
         if (Arrays.equals(Senha.getPassword(), ConfirmarSenha.getPassword())){
-            Fornecedor forn = new Fornecedor();
-            forn.setRazao(RazaoSocial.getText());
-            forn.setFantasia(Fantasia.getText());
-            forn.setCnpj(CNPJ.getText());
-            forn.setTelefone(Telefone.getText());
-            forn.setEmail(Email.getText());
-            forn.setCep(CEP.getText());
-            forn.setNumero(Numero.getText());
-            forn.setEndereço(Endereco.getText());
-            forn.setUf((UfEnum) UF.getSelectedItem());
-            forn.setCidade(Cidade.getText());
-            forn.setLogin(Login.getText());
-            forn.setSenha(Senha.getPassword());
-            ReturnValidate retorno = FornecedorController.InsereFornecedor(forn);
-            if (retorno.isValid()) {
-                this.setVisible(false);
+            ReturnValidate validacaoView = this.validaFornecedorView();
+            if (validacaoView.isValid()){
+                Fornecedor forn = new Fornecedor();
+                
+                forn.setRazao(RazaoSocial.getText());
+                forn.setFantasia(Fantasia.getText());
+                forn.setCnpj(CNPJ.getText());
+                forn.setTelefone(Telefone.getText());
+                forn.setEmail(Email.getText());
+                forn.setCep(CEP.getText());
+                forn.setNumero(Numero.getText());
+                forn.setEndereço(Endereco.getText());
+                forn.setUf((UfEnum) UF.getSelectedItem());
+                forn.setCidade(Cidade.getText());
+                forn.setLogin(Login.getText());
+                forn.setSenha(Senha.getPassword());
+                forn.setSenha(ConfirmarSenha.getPassword());
+                
+                forn.setCodigo(this.codigo);
+                
+                ReturnValidate retorno = FornecedorController.InsereFornecedor(forn);
+                if (retorno.isValid()) {
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, retorno.getMessage());
+                }
             } else {
-                JOptionPane.showMessageDialog(this, retorno.getMessage());
+                JOptionPane.showMessageDialog(this, validacaoView.getMessage());
             }
         }else {
             JOptionPane.showMessageDialog(this, "As senhas não conferem!");
-            
         }
     }//GEN-LAST:event_SalvarActionPerformed
+
+    private void InativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InativarActionPerformed
+        if (ativo) {
+            if (JOptionPane.showConfirmDialog(this, "Deseja mesmo inativar?") == 0) {
+                ReturnValidate retorno = FornecedorController.Inativar(this.codigo);
+                if (retorno.isValid()) {
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Um erro ocorreu!\n" + retorno.getMessage());
+                }
+            }
+        } else {
+            ReturnValidate retorno = FornecedorController.Reativar(this.codigo);
+            if (retorno.isValid()) {
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Um erro ocorreu!\n" + retorno.getMessage());
+            }
+        }
+    }//GEN-LAST:event_InativarActionPerformed
+                   
     
     private ReturnValidate validaFornecedorView(){
         String retorno = "";
-        
         if (Util.isNullOrEmpty(RazaoSocial.getText())){
             retorno += "Campo 'Razao Social' não pode ser vazio\n";
         }
         
-        if (Util.isNullOrEmpty(CNPJ.getText())) {
+        if (!Util.ValidateCnpj(CNPJ.getText().replace(".", "").replace("-", "").replace("/", ""))) {
             retorno += "CNPJ inválido\n";
         }
         
-        if (Util.isNullOrEmpty(Telefone.getText())){
+        if (Util.isNullOrEmpty(Telefone.getText().replace("(", "").replace(")", "").replace("-", ""))){
             retorno += "Campo 'Telefone' não pode ser vazio\n";
         }
         
-        if (Util.isNullOrEmpty(CEP.getText())){
+        if (Util.isNullOrEmpty(CEP.getText().replace("-", ""))){
             retorno += "Campo 'CEP' não pode ser vazio\n";
         }
         
@@ -319,6 +383,24 @@ public class FornecedorCadastro extends javax.swing.JInternalFrame {
         }
         
         return new ReturnValidate(retorno);
+    }
+    
+    private void setEditableScreen(Boolean editable) {
+        RazaoSocial.setEditable(editable);
+        Fantasia.setEditable(editable);
+        CNPJ.setEditable(editable);
+        Telefone.setEditable(editable);
+        Email.setEditable(editable);
+        CEP.setEditable(editable);
+        Numero.setEnabled(editable);
+        Endereco.setEditable(editable);
+        UF.setEditable(editable);
+        Cidade.setEditable(editable);
+        CEP.setEnabled(editable);
+        Email.setEnabled(editable);
+        Senha.setEnabled(editable);
+        ConfirmarSenha.setEnabled(editable);
+        Login.setEnabled(editable);
     }
     
     /**
