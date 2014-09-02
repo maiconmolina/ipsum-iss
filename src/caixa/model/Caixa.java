@@ -44,18 +44,19 @@ public class Caixa implements Serializable {
         this.codigo = codigo;
     }
 
-    public static double getSaldo() {
-        saldo = 0;
-        List<Lancamento> lancamentos = LancamentoController.busca();
-        for (Lancamento lanc : lancamentos) {
-            if (lanc.getTipo().toString().equals("Entrada")) {
-                saldo = saldo + lanc.getValor();
-            } else {
-                if (lanc.getTipo().toString().equals("Saída")) {
-                    saldo = saldo - lanc.getValor();
-                }
-            }
-        }
+    public double getSaldo() {
+//        saldo = 0;
+//        List<Lancamento> lancamentos = LancamentoController.busca();
+//        for (Lancamento lanc : lancamentos) {
+//            if (lanc.getTipo().toString().equals("Entrada")) {
+//                saldo = saldo + lanc.getValor();
+//            } else {
+//                if (lanc.getTipo().toString().equals("Saída")) {
+//                    saldo = saldo - lanc.getValor();
+//                }
+//            }
+//        }
+//        return saldo;
         return saldo;
     }
 

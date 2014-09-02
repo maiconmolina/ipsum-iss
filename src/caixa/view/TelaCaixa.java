@@ -6,6 +6,7 @@
 package caixa.view;
 
 import Util.InterfaceUtils;
+import caixa.controller.CaixaController;
 import caixa.model.Caixa;
 import ipsum.view.TelaStart;
 import java.util.ArrayList;
@@ -109,8 +110,8 @@ public class TelaCaixa extends javax.swing.JInternalFrame {
         jLabel1.setText("Lançamentos: 0");
 
         saldo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        Caixa caixa = new  Caixa();
-        saldo.setText("Saldo: R$"+Double.toString(caixa.getSaldo()));
+        double saldoCaixa = CaixaController.consultaSaldo();
+        saldo.setText("Saldo: R$"+Double.toString(saldoCaixa));
 
         jButton4.setText("Alterar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {

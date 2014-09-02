@@ -131,11 +131,11 @@
     </Component>
     <Component class="javax.swing.JLabel" name="saldo">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor" postCode="Caixa caixa = new  Caixa();">
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor" postCode="double saldoCaixa = CaixaController.consultaSaldo();">
           <Font name="Tahoma" size="11" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="&quot;Saldo: R$&quot;+Double.toString(caixa.getSaldo())" type="code"/>
+          <Connection code="&quot;Saldo: R$&quot;+Double.toString(saldoCaixa)" type="code"/>
         </Property>
       </Properties>
     </Component>
