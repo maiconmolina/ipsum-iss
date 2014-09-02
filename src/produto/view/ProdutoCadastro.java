@@ -9,6 +9,7 @@ package produto.view;
 import Util.DecimalFormattedField;
 import ipsum.view.TelaStart;
 import material.view.MaterialCadastro;
+import produto.model.Produto;
 
 /**
  *
@@ -20,6 +21,10 @@ public class ProdutoCadastro extends javax.swing.JInternalFrame {
      * Creates new form ProdutoCadastro
      */
     public ProdutoCadastro() {
+        initComponents();
+    }
+   
+    public ProdutoCadastro(Produto prod) {
         initComponents();
     }
 

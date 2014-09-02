@@ -6,14 +6,17 @@
 
 package produto.view;
 
+import ipsum.view.TelaStart;
 import java.awt.EventQueue;
 import java.beans.Beans;
 import java.util.ArrayList;
-
 import java.util.List;
 import javax.persistence.RollbackException;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import produto.model.Produto;
 
 /**
  *
@@ -53,7 +56,7 @@ public class ProdutoCRUD extends JPanel {
         refreshButton = new javax.swing.JButton();
         newButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        detalhes = new javax.swing.JButton();
 
         FormListener formListener = new FormListener();
 
@@ -114,7 +117,8 @@ public class ProdutoCRUD extends JPanel {
 
         deleteButton.addActionListener(formListener);
 
-        jButton1.setText("Materiais");
+        detalhes.setText("Detalhes");
+        detalhes.addActionListener(formListener);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -147,7 +151,7 @@ public class ProdutoCRUD extends JPanel {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(detalhes)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -159,7 +163,7 @@ public class ProdutoCRUD extends JPanel {
                 .addContainerGap()
                 .addComponent(masterScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(detalhes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(descricaoLabel)
@@ -200,6 +204,9 @@ public class ProdutoCRUD extends JPanel {
             }
             else if (evt.getSource() == deleteButton) {
                 ProdutoCRUD.this.deleteButtonActionPerformed(evt);
+            }
+            else if (evt.getSource() == detalhes) {
+                ProdutoCRUD.this.detalhesActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
@@ -254,6 +261,20 @@ public class ProdutoCRUD extends JPanel {
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 
+    private void detalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detalhesActionPerformed
+      try {
+            DefaultTableModel model = (DefaultTableModel) masterTable.getModel();
+            Produto prod = (Produto) model.getValueAt(masterTable.getSelectedRow(), 1);
+            ProdutoCadastro fc = new ProdutoCadastro(prod);
+            TelaStart.addFrame(fc);
+            fc.setLocation(10, 10);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            JOptionPane.showMessageDialog(this, "Item selecionado inválido!");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Um erro aconteceu!\n" + ex.getMessage());
+        }
+    }//GEN-LAST:event_detalhesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ativoField;
@@ -261,8 +282,8 @@ public class ProdutoCRUD extends JPanel {
     private javax.swing.JButton deleteButton;
     private javax.swing.JTextField descricaoField;
     private javax.swing.JLabel descricaoLabel;
+    private javax.swing.JButton detalhes;
     private javax.persistence.EntityManager entityManager;
-    private javax.swing.JButton jButton1;
     private java.util.List<produto.model.Produto> list;
     private javax.swing.JScrollPane masterScrollPane;
     private javax.swing.JTable masterTable;
