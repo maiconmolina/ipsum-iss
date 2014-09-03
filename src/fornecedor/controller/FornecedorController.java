@@ -2,28 +2,34 @@ package fornecedor.controller;
 
 import Util.ReturnValidate;
 import fornecedor.model.Fornecedor;
+import fornecedor.model.FornecedorDAOImpl;
 import java.util.List;
 
 public class FornecedorController {
 
     public static ReturnValidate InsereFornecedor(Fornecedor forn) {
-        return forn.save();
+       return forn.save();
     }
+    
     public static List<Fornecedor> getUsuariosAtivos() {
-        return Fornecedor.getAllActive();//VOLTAR PRO GET ALL ATIVO
+        FornecedorDAOImpl forn = new FornecedorDAOImpl();
+        return forn.getAllActive();
     }
 
     public static ReturnValidate Inativar(Integer codigo) {
-        Fornecedor func = Fornecedor.getByCodigo(codigo);
-        return func.inativar();
+        Fornecedor forn = Fornecedor.getByCodigo(codigo);
+        forn.inativar();
+        return forn.save();
     }
 
     public static ReturnValidate Reativar(Integer codigo) {
-        Fornecedor func = Fornecedor.getByCodigo(codigo);
-        return func.reativar();
+        Fornecedor forn = Fornecedor.getByCodigo(codigo);
+        forn.reativar();
+        return forn.save();
     }
 
     public static List<Fornecedor> getUsuarios() {
-        return Fornecedor.getAll();
+        FornecedorDAOImpl forn = new FornecedorDAOImpl();
+        return forn.getAll(Fornecedor.class);
     }
 }

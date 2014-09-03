@@ -151,9 +151,9 @@ public class FornecedorBusca extends javax.swing.JInternalFrame {
 
     private void VisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisualizarActionPerformed
          try {
-            DefaultTableModel model = (DefaultTableModel) TabelaBusca.getModel();
-            Fornecedor forn = (Fornecedor) model.getValueAt(TabelaBusca.getSelectedRow(), 1);
-            FornecedorCadastro fc = new FornecedorCadastro(forn);
+            DefaultTableModel model = (DefaultTableModel) TabelaBusca.getModel();  
+            Fornecedor forn = (Fornecedor) model.getValueAt(TabelaBusca.getSelectedRow(), 1); //Pega o objeto na tabela
+            FornecedorCadastro fc = new FornecedorCadastro(forn); //Abre a tela de cadastro com os dados do objeto pesquisado  
             TelaStart.addFrame(fc);
             fc.setLocation(10, 10);
         } catch (ArrayIndexOutOfBoundsException ex) {
@@ -164,7 +164,7 @@ public class FornecedorBusca extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_VisualizarActionPerformed
 
      
-    private List<Fornecedor> listaDados() {
+    private List<Fornecedor> listaDados() { //Mostra na tela os dados que foram pesquisados
         List<Fornecedor> dados;
         List<Fornecedor> listagem = new ArrayList<>();
         DefaultTableModel model = (DefaultTableModel) TabelaBusca.getModel();
@@ -179,7 +179,7 @@ public class FornecedorBusca extends javax.swing.JInternalFrame {
             listagem = dados;
         } else {
             if (!Util.isNullOrEmpty(Razao.getText()) && Util.isNullOrEmpty(CNPJ.getText())) {
-                //Pesquisa por nome
+                //Pesquisa por Razao
                 for (Fornecedor f : dados) {
                     if (f.getRazao().toLowerCase().contains(Razao.getText().toLowerCase())) {
                         listagem.add(f);
@@ -187,7 +187,7 @@ public class FornecedorBusca extends javax.swing.JInternalFrame {
                 }
             } else {
                 if (Util.isNullOrEmpty(Razao.getText()) && !Util.isNullOrEmpty(CNPJ.getText())) {
-                    //Pesquisa por CPF, exata
+                    //Pesquisa por CNPJ, exata
                     for (Fornecedor f : dados) {
                         if (f.getCnpj().equals(CNPJ.getText().replace(".", "").replace("-", "").replace("/", ""))) {
                             listagem.add(f);

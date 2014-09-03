@@ -201,16 +201,18 @@ public class Fornecedor extends Usuario implements Serializable, RemovableLogica
     @Override
     public ReturnValidate inativar() {
         this.ativo = false;
-        return this.save();
+        //return this.save();
+        return new ReturnValidate("");
     }
 
     @Override
     public ReturnValidate reativar() {
         this.ativo = true;
-        return this.save();
+        //return this.save();
+        return new ReturnValidate("");
     }
     
-    public static List<Fornecedor> getAll() {
+    /*public static List<Fornecedor> getAll() {
         FornecedorDAOImpl forn = new FornecedorDAOImpl();
         return forn.getAll(Fornecedor.class);
     }
@@ -219,7 +221,7 @@ public class Fornecedor extends Usuario implements Serializable, RemovableLogica
         FornecedorDAOImpl forn = new FornecedorDAOImpl();
         return forn.getAllActive();
     }
-    
+    */
     @Override
     public String toString() {
         return this.razao;

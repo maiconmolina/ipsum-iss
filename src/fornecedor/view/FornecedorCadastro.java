@@ -19,19 +19,19 @@ import javax.swing.JOptionPane;
  *
  * @author Maicon
  */
-public class FornecedorCadastro extends javax.swing.JInternalFrame {
+public class FornecedorCadastro extends javax.swing.JInternalFrame { //Variaveis locais
 
     private Integer codigo = null;
     private Boolean ativo;
     /**
      * Creates new form FornecedorCadastro
      */
-    public FornecedorCadastro() {
+    public FornecedorCadastro() { //Contrutor para inserção
         initComponents();
         Inativar.setVisible(false);
     }
     
-    public FornecedorCadastro(Fornecedor forn){
+    public FornecedorCadastro(Fornecedor forn){  //Construtor para edição
         initComponents();
         CNPJ.setText(forn.getCnpj());
         RazaoSocial.setText(forn.getRazao());
@@ -296,10 +296,10 @@ public class FornecedorCadastro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_EmailActionPerformed
 
     private void SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarActionPerformed
-        if (Arrays.equals(Senha.getPassword(), ConfirmarSenha.getPassword())){
-            ReturnValidate validacaoView = this.validaFornecedorView();
-            if (validacaoView.isValid()){
-                Fornecedor forn = new Fornecedor();
+        if (Arrays.equals(Senha.getPassword(), ConfirmarSenha.getPassword())){ //verefica se as senhas são iquais
+            ReturnValidate validacaoView = this.validaFornecedorView(); //Chama as valida dos campos
+            if (validacaoView.isValid()){ 
+                Fornecedor forn = new Fornecedor(); //Cria um objeto 
                 
                 forn.setRazao(RazaoSocial.getText());
                 forn.setFantasia(Fantasia.getText());
@@ -317,7 +317,7 @@ public class FornecedorCadastro extends javax.swing.JInternalFrame {
                 
                 forn.setCodigo(this.codigo);
                 
-                ReturnValidate retorno = FornecedorController.InsereFornecedor(forn);
+                ReturnValidate retorno = FornecedorController.InsereFornecedor(forn); //Joga para o Controller Inserir
                 if (retorno.isValid()) {
                     this.dispose();
                 } else {
@@ -332,16 +332,16 @@ public class FornecedorCadastro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_SalvarActionPerformed
 
     private void InativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InativarActionPerformed
-        if (ativo) {
+        if (ativo) {                                                                // verifica se esta ativo
             if (JOptionPane.showConfirmDialog(this, "Deseja mesmo inativar?") == 0) {
-                ReturnValidate retorno = FornecedorController.Inativar(this.codigo);
+                ReturnValidate retorno = FornecedorController.Inativar(this.codigo); //Joga para o Controller Inativar
                 if (retorno.isValid()) {
                     this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Um erro ocorreu!\n" + retorno.getMessage());
                 }
             }
-        } else {
+        } else {                                                                //Joga para o Controller Ativar         
             ReturnValidate retorno = FornecedorController.Reativar(this.codigo);
             if (retorno.isValid()) {
                 this.dispose();
@@ -352,7 +352,7 @@ public class FornecedorCadastro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_InativarActionPerformed
                    
     
-    private ReturnValidate validaFornecedorView(){
+    private ReturnValidate validaFornecedorView(){  //Validações dos campos
         String retorno = "";
         if (Util.isNullOrEmpty(RazaoSocial.getText())){
             retorno += "Campo 'Razao Social' não pode ser vazio\n";
@@ -385,8 +385,8 @@ public class FornecedorCadastro extends javax.swing.JInternalFrame {
         return new ReturnValidate(retorno);
     }
     
-    private void setEditableScreen(Boolean editable) {
-        RazaoSocial.setEditable(editable);
+    private void setEditableScreen(Boolean editable) { //Se o Objeto estiver Inativo(bloqueia a edição) 
+        RazaoSocial.setEditable(editable);             // Se o Objeto estiver Ativo(Permite a edição)
         Fantasia.setEditable(editable);
         CNPJ.setEditable(editable);
         Telefone.setEditable(editable);
