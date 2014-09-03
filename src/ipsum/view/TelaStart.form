@@ -40,7 +40,8 @@
           <SubComponents>
             <Menu class="javax.swing.JMenu" name="jMenu5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Lotes"/>
+                <Property name="text" type="java.lang.String" value="[RESERVADO SP2]"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">

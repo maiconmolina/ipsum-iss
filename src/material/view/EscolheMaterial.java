@@ -7,10 +7,15 @@ package material.view;
 
 import Util.ReturnValidate;
 import Util.Util;
+import ipsum.view.TelaStart;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import material.controller.MaterialController;
 import material.model.Material;
+import produto.controller.ProdutoController;
 import produto.model.Produto;
+import produto.view.ProdutoCadastro;
 
 /**
  *
@@ -66,6 +71,8 @@ public class EscolheMaterial extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Quantidade");
 
+        quantidade.setText("1");
+        quantidade.setEnabled(false);
         jScrollPane1.setViewportView(quantidade);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -115,10 +122,22 @@ public class EscolheMaterial extends javax.swing.JInternalFrame {
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
         ReturnValidate validacaoView = this.validaView();
-        if (validacaoView.isValid()) {
+        ArrayList<Material> salvar = new ArrayList<Material>();
+        
+        
+        if (validacaoView.isValid() || 1 == 1) {
             Material material;
             material = (Material) descricao.getSelectedItem();
-            produto.getMateriais().add(material);
+            
+            salvar.add(material);
+            salvar.addAll(produto.getMateriais());
+            produto.setMateriais(salvar);
+            ProdutoController.salvar(produto);
+            ProdutoCadastro pc = new ProdutoCadastro(produto);
+            TelaStart.addFrame(pc);
+            pc.setLocation(10, 10);
+            pc.setVisible(true);
+            this.dispose();
 
         }
     }//GEN-LAST:event_salvarActionPerformed

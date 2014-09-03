@@ -141,7 +141,8 @@ public class TelaStart extends javax.swing.JFrame {
 
         jMenu2.setText("Produção");
 
-        jMenu5.setText("Lotes");
+        jMenu5.setText("[RESERVADO SP2]");
+        jMenu5.setEnabled(false);
 
         jMenuItem3.setText("Cadastrar");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {

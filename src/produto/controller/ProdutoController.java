@@ -23,5 +23,10 @@ public class ProdutoController {
         ProdutoDAOImpl prod = new ProdutoDAOImpl();
         return prod.getById(Produto.class, id);
     }
+      
+      public static void salvar(Produto p){
+          ProdutoDAOImpl pdao = new ProdutoDAOImpl();
+          pdao.save(p);
+      }
 
 }
