@@ -2,6 +2,7 @@ package funcionario.controller;
 
 import Util.ReturnValidate;
 import funcionario.model.Funcionario;
+import funcionario.model.FuncionarioDaoImpl;
 import java.util.List;
 
 public class FuncionarioController {
@@ -11,20 +12,24 @@ public class FuncionarioController {
     }
 
     public static List<Funcionario> getUsuariosAtivos() {
-        return Funcionario.getAllActive();//VOLTAR PRO GET ALL ATIVO
+        FuncionarioDaoImpl func = new FuncionarioDaoImpl();
+        return func.getAllActive();
     }
 
     public static ReturnValidate Inativar(Integer codigo) {
         Funcionario func = Funcionario.getByCodigo(codigo);
-        return func.inativar();
+        func.inativar();
+        return func.save();
     }
 
     public static ReturnValidate Reativar(Integer codigo) {
         Funcionario func = Funcionario.getByCodigo(codigo);
-        return func.reativar();
+        func.reativar();
+        return func.save();
     }
 
     public static List<Funcionario> getUsuarios() {
-        return Funcionario.getAll();
+        FuncionarioDaoImpl func = new FuncionarioDaoImpl();
+        return func.getAll(Funcionario.class);
     }
 }

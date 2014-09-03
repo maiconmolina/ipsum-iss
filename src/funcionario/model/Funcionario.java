@@ -214,16 +214,16 @@ public class Funcionario extends Usuario implements Serializable, RemovableLogic
     @Override
     public ReturnValidate inativar() {
         this.ativo = false;
-        return this.save();
+        return new ReturnValidate("");
     }
 
     @Override
     public ReturnValidate reativar() {
         this.ativo = true;
-        return this.save();
+        return new ReturnValidate("");
     }
 
-    public static List<Funcionario> getAll() {
+    /*public static List<Funcionario> getAll() {
         FuncionarioDaoImpl func = new FuncionarioDaoImpl();
         return func.getAll(Funcionario.class);
     }
@@ -231,7 +231,7 @@ public class Funcionario extends Usuario implements Serializable, RemovableLogic
     public static List<Funcionario> getAllActive() {
         FuncionarioDaoImpl func = new FuncionarioDaoImpl();
         return func.getAllActive();
-    }
+    }*/
 
     @Override
     public String toString() {
