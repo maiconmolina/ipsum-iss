@@ -8,9 +8,10 @@ package funcionario.view;
 import Util.Constante;
 import Util.ReturnValidate;
 import Util.Util;
+import funcao.controller.FuncaoController;
+import funcao.model.Funcao;
 import funcionario.controller.FuncionarioController;
 import funcionario.model.Funcionario;
-import funcionario.model.Funcoes;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
@@ -245,7 +246,7 @@ public class FuncionarioCadastro extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        for(Funcoes f : Funcoes.values()){
+        for(Funcao f : FuncaoController.getAllActive()){
             this.jComboBox1.addItem(f);
         }
 
@@ -265,7 +266,7 @@ public class FuncionarioCadastro extends javax.swing.JInternalFrame {
                 func.setRg(jTextField6.getText());
                 func.setTelefone(jFormattedTextField3.getText());
                 func.setEndereco(jTextField2.getText());
-                func.setFuncao((Funcoes) jComboBox1.getSelectedItem());
+                func.setFuncao((Funcao) jComboBox1.getSelectedItem());
                 func.setSalario(jTextField8.getText());
                 func.setLogin(jTextField9.getText());
                 func.setSenha(jPasswordField1.getPassword());
@@ -294,7 +295,7 @@ public class FuncionarioCadastro extends javax.swing.JInternalFrame {
                 if (retorno.isValid()) {
                     this.dispose();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Um erro ocorreu!\n" + retorno.getMessage());
+                    JOptionPane.showMessageDialog(this, retorno.getMessage());
                 }
             }
         } else {

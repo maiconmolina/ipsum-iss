@@ -11,6 +11,8 @@ import conta.view.ContasAPagar;
 import conta.view.ContasAReceber;
 import fornecedor.view.FornecedorBusca;
 import fornecedor.view.FornecedorCadastro;
+import funcao.view.FuncaoCadastro;
+import funcao.view.FuncaoConsulta;
 import funcionario.view.FuncionarioCadastro;
 import funcionario.view.FuncionarioConsulta;
 import java.awt.Component;
@@ -93,6 +95,9 @@ public class TelaStart extends javax.swing.JFrame {
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu11 = new javax.swing.JMenu();
+        jMenu16 = new javax.swing.JMenu();
+        jMenuItem18 = new javax.swing.JMenuItem();
+        jMenuItem20 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenu12 = new javax.swing.JMenu();
@@ -292,6 +297,26 @@ public class TelaStart extends javax.swing.JFrame {
 
         jMenu11.setText("Cadastro");
 
+        jMenu16.setText("Funcao");
+
+        jMenuItem18.setText("Cadastrar");
+        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem18ActionPerformed(evt);
+            }
+        });
+        jMenu16.add(jMenuItem18);
+
+        jMenuItem20.setText("Consulta");
+        jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem20ActionPerformed(evt);
+            }
+        });
+        jMenu16.add(jMenuItem20);
+
+        jMenu11.add(jMenu16);
+
         jMenuItem10.setText("Cadastrar");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -483,6 +508,20 @@ public class TelaStart extends javax.swing.JFrame {
         pcd.setVisible(true);
     }//GEN-LAST:event_jMenuItem19ActionPerformed
 
+    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
+        FuncaoCadastro fc = new FuncaoCadastro();
+        jDesktopStart.add(fc);
+        fc.setLocation(0, 0);
+        fc.setVisible(true);
+    }//GEN-LAST:event_jMenuItem18ActionPerformed
+
+    private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
+        FuncaoConsulta fc = new FuncaoConsulta();
+        jDesktopStart.add(fc);
+        fc.setLocation(0, 0);
+        fc.setVisible(true);
+    }//GEN-LAST:event_jMenuItem20ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -527,6 +566,7 @@ public class TelaStart extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu14;
     private javax.swing.JMenu jMenu15;
+    private javax.swing.JMenu jMenu16;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -545,8 +585,10 @@ public class TelaStart extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
+    private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

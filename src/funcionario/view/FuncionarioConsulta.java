@@ -25,7 +25,7 @@ public class FuncionarioConsulta extends javax.swing.JInternalFrame {
      */
     public FuncionarioConsulta() {
         initComponents();
-        List<Funcionario> funcAtivos = FuncionarioController.getUsuariosAtivos();
+        List<Funcionario> funcAtivos = FuncionarioController.getFuncionariosAtivos();
         this.insereTabela(funcAtivos);
     }
 
@@ -169,9 +169,9 @@ public class FuncionarioConsulta extends javax.swing.JInternalFrame {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setNumRows(0);
         if (jCheckBox1.isSelected()) {
-            dados = FuncionarioController.getUsuariosAtivos();
+            dados = FuncionarioController.getFuncionariosAtivos();
         } else {
-            dados = FuncionarioController.getUsuarios();
+            dados = FuncionarioController.getFuncionarios();
         }
         if (Util.isNullOrEmpty(jTextField1.getText()) && Util.isNullOrEmpty(jTextField2.getText())) {
             //pesquisa default
@@ -212,7 +212,7 @@ public class FuncionarioConsulta extends javax.swing.JInternalFrame {
         for (Funcionario f : data) {
             dados.add(f);
             dados.add(f.getCpfMasked());
-            dados.add(f.getFuncao());
+            dados.add(f.getFuncao().toString());
             dados.add(f.getTelefoneMasked());
             model.addRow(dados.toArray());
             dados.clear();

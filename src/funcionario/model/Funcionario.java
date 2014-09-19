@@ -3,6 +3,7 @@ package funcionario.model;
 import Util.RemovableLogically;
 import Util.ReturnValidate;
 import Util.Util;
+import funcao.model.Funcao;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
@@ -41,8 +42,9 @@ public class Funcionario extends Usuario implements Serializable, RemovableLogic
     @Column(length = 255, name = "ENDERECO", nullable = false)
     private String endereco;
 
-    @Column(name = "FUNCAO", nullable = false)
-    private Funcoes funcao;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "Funcao")
+    private Funcao funcao;
 
     @Column(name = "ATIVO", nullable = false)
     private Boolean ativo;
@@ -59,7 +61,7 @@ public class Funcionario extends Usuario implements Serializable, RemovableLogic
         this.temporario = false;
         this.telefone = new String();
         this.endereco = new String();
-        this.funcao = Funcoes.COSTUREIRO;
+        this.funcao = new Funcao();
         this.nivel = NivelHabilidade.INICIANTE;
         this.ativo = true;
         this.salario = 0.0;
@@ -152,11 +154,11 @@ public class Funcionario extends Usuario implements Serializable, RemovableLogic
         this.endereco = endereco;
     }
 
-    public Funcoes getFuncao() {
+    public Funcao getFuncao() {
         return funcao;
     }
 
-    public void setFuncao(Funcoes funcao) {
+    public void setFuncao(Funcao funcao) {
         this.funcao = funcao;
     }
 

@@ -11,7 +11,7 @@ public class FuncionarioController {
         return func.save();
     }
 
-    public static List<Funcionario> getUsuariosAtivos() {
+    public static List<Funcionario> getFuncionariosAtivos() {
         FuncionarioDaoImpl func = new FuncionarioDaoImpl();
         return func.getAllActive();
     }
@@ -28,7 +28,7 @@ public class FuncionarioController {
         return func.save();
     }
 
-    public static List<Funcionario> getUsuarios() {
+    public static List<Funcionario> getFuncionarios() {
         FuncionarioDaoImpl func = new FuncionarioDaoImpl();
         return func.getAll(Funcionario.class);
     }
