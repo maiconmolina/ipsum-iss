@@ -8,26 +8,44 @@ package lancamento.model;
 import Util.ReturnValidate;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import situacaolancamento.model.SituacaoLancamento;
 
 @Entity
-@Table(name = "Lancamento")
-
+@Table(name = "LANCAMENTO")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Lancamento.findAll", query = "SELECT l FROM Lancamento l"),
+    @NamedQuery(name = "Lancamento.findByCodlanc", query = "SELECT l FROM Lancamento l WHERE l.codlanc = :codlanc")})
 public class Lancamento implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer Codigo;
+    @Basic(optional = false)
+    @Column(name = "CODLANC")
+    private Integer codlanc;
 
     @Column(length = 1, name = "TIPO", nullable = false)
     private TipoDeLancamento tipo;
+
+    @Column(name = "STATUS", nullable = true)
+    private Boolean status;
+
+    @Column(name = "CODIGOTIPO", nullable = true)
+    private int codigoTipo;
 
     @Column(name = "VALOR", nullable = false)
     private Double valor;
@@ -35,22 +53,27 @@ public class Lancamento implements Serializable {
     @Column(length = 500, name = "DESCRICAO", nullable = false)
     private String descricao;
 
-//    @Temporal(TemporalType.DATE)
-//    private Calendar data;
-
-//    @Column(length = 1, name = "ATIVO", nullable = false)
-//    private boolean ativo;
 //    
+//    @OneToMany(mappedBy = "lancamento")
+//    private Collection<SituacaoLancamento> historico;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lancamento")
+    private Collection<SituacaoLancamento> situacaoLancamentoCollection;
+    
+    @Temporal(TemporalType.DATE)
+    private Calendar dataInsercao;
+
     public Lancamento() {
         super();
+        this.status = true;
     }
 
     public Integer getCodigo() {
-        return Codigo;
+        return codlanc;
     }
 
     public void setCodigo(Integer Codigo) {
-        this.Codigo = Codigo;
+        this.codlanc = Codigo;
     }
 
     public TipoDeLancamento getTipo() {
@@ -109,14 +132,6 @@ public class Lancamento implements Serializable {
         return new ReturnValidate("");
     }
 
-//    public boolean isAtivo() {
-//        return ativo;
-//    }
-//
-//    public void setAtivo(boolean ativo) {
-//        this.ativo = ativo;
-//    }
-//
 //    public Calendar getData() {
 //        return data;
 //    }
@@ -124,4 +139,61 @@ public class Lancamento implements Serializable {
 //    public void setData(Calendar data) {
 //        this.data = data;
 //    }
+    public Boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public int getCodigoTipo() {
+        return codigoTipo;
+    }
+
+    public void setCodigoTipo(int codigoTipo) {
+        this.codigoTipo = codigoTipo;
+    }
+
+    public Calendar getData() {
+        return dataInsercao;
+    }
+
+    public void setData(Calendar data) {
+        this.dataInsercao = data;
+    }
+
+//    @XmlTransient
+//    public Collection<SituacaoLancamento> getSituacaoLancamentoCollection() {
+//        return situacaoLancamentoCollection;
+//    }
+//
+//    public void setSituacaoLancamentoCollection(Collection<SituacaoLancamento> situacaoLancamentoCollection) {
+//        this.situacaoLancamentoCollection = situacaoLancamentoCollection;
+//    }
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (codlanc != null ? codlanc.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Lancamento)) {
+            return false;
+        }
+        Lancamento other = (Lancamento) object;
+        if ((this.codlanc == null && other.codlanc != null) || (this.codlanc != null && !this.codlanc.equals(other.codlanc))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "lab.Lancamento[ codlanc=" + codlanc + " ]";
+    }
+
 }

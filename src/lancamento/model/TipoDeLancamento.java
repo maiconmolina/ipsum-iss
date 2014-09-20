@@ -2,7 +2,7 @@ package lancamento.model;
 
 public enum TipoDeLancamento {
 
-    ENTRADA("Entrada"), SAIDA("Saída");
+    ENTRADA("Entrada comum"), SAIDA("Saída comum"), PAGAMENTO("Pagamento de Funcionário"), RECEBIMENTO("Recebimento do Fornecedor/Cliente");
 
     private final String label;
 
