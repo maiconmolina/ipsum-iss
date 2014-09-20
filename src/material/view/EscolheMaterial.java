@@ -121,7 +121,7 @@ public class EscolheMaterial extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
-        ReturnValidate validacaoView = this.validaView();
+        /*ReturnValidate validacaoView = this.validaView();
         ArrayList<Material> salvar = new ArrayList<Material>();
         
         
@@ -131,6 +131,7 @@ public class EscolheMaterial extends javax.swing.JInternalFrame {
             
             salvar.add(material);
             salvar.addAll(produto.getMateriais());
+            
             produto.setMateriais(salvar);
             ProdutoController.salvar(produto);
             ProdutoCadastro pc = new ProdutoCadastro(produto);
@@ -139,7 +140,7 @@ public class EscolheMaterial extends javax.swing.JInternalFrame {
             pc.setVisible(true);
             this.dispose();
 
-        }
+        }*/
     }//GEN-LAST:event_salvarActionPerformed
 
     /**

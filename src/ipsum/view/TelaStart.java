@@ -24,6 +24,7 @@ import lote.view.LoteFuncionarios;
 import material.view.MaterialCadastro;
 import material.view.MaterialCRUDView;
 import pagamento.view.GeraFolha;
+import pagamentoLote.view.PagamentoLote;
 import producao.view.AtualizaProducao;
 import produto.view.ProdutoCRUDView;
 import relatorio.FuncionarioLote;
@@ -74,6 +75,7 @@ public class TelaStart extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuPagarLote = new javax.swing.JMenuItem();
         jMenu14 = new javax.swing.JMenu();
         jMenuItem19 = new javax.swing.JMenuItem();
         jMenu15 = new javax.swing.JMenu();
@@ -146,8 +148,7 @@ public class TelaStart extends javax.swing.JFrame {
 
         jMenu2.setText("Produção");
 
-        jMenu5.setText("[RESERVADO SP2]");
-        jMenu5.setEnabled(false);
+        jMenu5.setText("Lote");
 
         jMenuItem3.setText("Cadastrar");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -164,6 +165,14 @@ public class TelaStart extends javax.swing.JFrame {
             }
         });
         jMenu5.add(jMenuItem4);
+
+        jMenuPagarLote.setText("Pagar");
+        jMenuPagarLote.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuPagarLoteActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuPagarLote);
 
         jMenu2.add(jMenu5);
 
@@ -522,6 +531,13 @@ public class TelaStart extends javax.swing.JFrame {
         fc.setVisible(true);
     }//GEN-LAST:event_jMenuItem20ActionPerformed
 
+    private void jMenuPagarLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuPagarLoteActionPerformed
+        PagamentoLote pl = new PagamentoLote();
+        jDesktopStart.add(pl);
+        pl.setLocation(10, 10);
+        pl.setVisible(true);
+    }//GEN-LAST:event_jMenuPagarLoteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -597,6 +613,7 @@ public class TelaStart extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuItem jMenuPagarLote;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

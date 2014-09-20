@@ -26,9 +26,9 @@ public class ProdutoCadastro extends javax.swing.JInternalFrame {
     }
 
     public ProdutoCadastro(Produto prod) {
-        initComponents();
+     /*   initComponents();
         jTextField2.setText(prod.getDescricao());
-        /*preco_unit.setText(prod.getPreco().toString());*/
+        //preco_unit.setText(prod.getPreco().toString());
         codigo = prod.getCodigo();
         DefaultTableModel modelo = (DefaultTableModel) materiais.getModel();
         for (Material m : prod.getMateriais()){
@@ -38,7 +38,7 @@ public class ProdutoCadastro extends javax.swing.JInternalFrame {
             dados.add(m.getPreco());
             dados.add(1);
             modelo.addRow(dados);
-        }
+        }*/
     }
 
 

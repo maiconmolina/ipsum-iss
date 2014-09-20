@@ -9,8 +9,11 @@ package material.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import produto.model.Produto;
 
 /**
@@ -18,14 +21,22 @@ import produto.model.Produto;
  * @author Maicon
  */
 @Entity
+@Table(name = "MATERIAL")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Material.findAll", query = "SELECT m FROM Material m"),
+    @NamedQuery(name = "Material.findByCodmat", query = "SELECT m FROM Material m WHERE m.codmat = :codmat"),
+    @NamedQuery(name = "Material.findByQtde", query = "SELECT m FROM Material m WHERE m.qtde = :qtde")})
 public class Material implements Serializable{
+    private static final long serialVersionUID = 1L;
+    
     @Transient
     private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "COD_MATERIAL")
-    private Integer codigo;
+    private Integer codmat;
     
     @Column(name = "DESCRICAO")
     private String descricao;
@@ -33,14 +44,20 @@ public class Material implements Serializable{
     @Column(name = "PRECO")
     private Double preco;
     
-    @ManyToMany(mappedBy = "materiais")
-    private List<Produto> produtos;
+    /*@ManyToMany(mappedBy = "materiais")
+    private List<Produto> produtos;*/
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "material")
+    private Collection<MaterialDoProduto> materialDoProdutoCollection;
     
     @Column(name = "ATIVO")
     private Boolean ativo = Boolean.TRUE;
     
+    @Column(name = "QTDE")
+    private Integer qtde;
+    
     public Material(Integer codigo, String descricao, Double preco) {
-        this.codigo = codigo;
+        this.codmat = codigo;
         this.ativo = Boolean.TRUE;
         this.descricao = descricao;
         this.preco = preco;
@@ -49,14 +66,22 @@ public class Material implements Serializable{
     public Material() {
         super();
     }
+    
+    public Integer getQtde() {
+        return qtde;
+    }
+
+    public void setQtde(Integer qtde) {
+        this.qtde = qtde;
+    }
 
     public Integer getCodigo() {
-        return codigo;
+        return codmat;
     }
 
     public void setCodigo(Integer codigo) {
-        Integer oldCodigo = this.codigo;
-        this.codigo = codigo;
+        Integer oldCodigo = this.codmat;
+        this.codmat = codigo;
         changeSupport.firePropertyChange("codigo", oldCodigo, codigo);
     }
 
@@ -80,14 +105,6 @@ public class Material implements Serializable{
         changeSupport.firePropertyChange("preco", oldPreco, preco);
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
-    }
-
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
-    }
-
     public Boolean isAtivo() {
         return ativo;
     }
@@ -106,8 +123,37 @@ public class Material implements Serializable{
         changeSupport.removePropertyChangeListener(listener);
     }
     
+        @XmlTransient
+    public Collection<MaterialDoProduto> getMaterialDoProdutoCollection() {
+        return materialDoProdutoCollection;
+    }
+
+    public void setMaterialDoProdutoCollection(Collection<MaterialDoProduto> materialDoProdutoCollection) {
+        this.materialDoProdutoCollection = materialDoProdutoCollection;
+    }
+
     @Override
-    public String toString(){
-        return this.descricao;
+    public int hashCode() {
+        int hash = 0;
+        hash += (codmat != null ? codmat.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Material)) {
+            return false;
+        }
+        Material other = (Material) object;
+        if ((this.codmat == null && other.codmat != null) || (this.codmat != null && !this.codmat.equals(other.codmat))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "teste.Material[ codmat=" + codmat + " ]";
     }
 }
