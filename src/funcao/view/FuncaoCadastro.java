@@ -60,6 +60,7 @@ public class FuncaoCadastro extends javax.swing.JInternalFrame {
         Inativar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
+        setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Função:");
