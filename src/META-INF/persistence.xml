@@ -12,6 +12,9 @@
     <class>produto.model.Produto</class>
     <class>usuario.model.Usuario</class>
     <class>funcao.model.Funcao</class>
+    <class>material.model.MaterialDoProduto</class>
+    <class>produto.model.ProdutoDoLote</class>
+    <class>situacaolancamento.model.SituacaoLancamento</class>
     <properties>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/ipsum"/>
