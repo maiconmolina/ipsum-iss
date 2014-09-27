@@ -6,8 +6,7 @@ import Util.UfEnum;
 import Util.Util;
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import usuario.model.Usuario;
 
 @Entity
@@ -45,6 +44,13 @@ public class Fornecedor extends Usuario implements Serializable, RemovableLogica
     
     @Column (name = "ATIVO", nullable = false)
     private Boolean ativo;
+    
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @JoinColumn(name="CUSTOMER_ID")
+    private List lotes;
+
+    
+    
     
     public Fornecedor() {
         super();

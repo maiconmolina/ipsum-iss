@@ -16,20 +16,15 @@ import funcao.view.FuncaoConsulta;
 import funcionario.view.FuncionarioCadastro;
 import funcionario.view.FuncionarioConsulta;
 import java.awt.Component;
-import java.util.Locale;
 import javax.swing.JOptionPane;
-import lote.view.LoteBusca;
-import lote.view.LoteCadastro;
-import lote.view.LoteFuncionarios;
+import lote.view.LoteConsulta;
 import material.view.MaterialCRUDView;
-import material.view.MaterialCadastro;
 import pagamento.view.GeraFolha;
 import pagamento.view.PagamentoLote;
 import producao.view.AtualizaProducao;
 import produto.view.ProdutoCRUDView;
 import relatorio.FuncionarioLote;
 import relatorio.FuncionarioProducao;
-import relatorio.LoteFornecedor;
 import relatorio.TelaRelatorioCaixa;
 
 /**
@@ -73,7 +68,6 @@ public class TelaStart extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuPagarLote = new javax.swing.JMenuItem();
         jMenu14 = new javax.swing.JMenu();
@@ -149,14 +143,6 @@ public class TelaStart extends javax.swing.JFrame {
         jMenu2.setText("Produção");
 
         jMenu5.setText("Lote");
-
-        jMenuItem3.setText("Cadastrar");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        jMenu5.add(jMenuItem3);
 
         jMenuItem4.setText("Consultar");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -398,15 +384,8 @@ public class TelaStart extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        LoteCadastro cadastrolote = new LoteCadastro();
-        jDesktopStart.add(cadastrolote);
-        cadastrolote.setLocation(0, 0);
-        cadastrolote.setVisible(true);
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        LoteBusca lb = new LoteBusca();
+        LoteConsulta lb = new LoteConsulta();
         jDesktopStart.add(lb);
         lb.setLocation(10, 10);
         lb.setVisible(true);
@@ -476,10 +455,10 @@ public class TelaStart extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
-        LoteFornecedor lf = new LoteFornecedor();
+        /*LoteFornecedor lf = new LoteFornecedor();
         jDesktopStart.add(lf);
         lf.setLocation(10, 10);
-        lf.setVisible(true);
+        lf.setVisible(true);*/
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
@@ -606,7 +585,6 @@ public class TelaStart extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem21;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
