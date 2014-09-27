@@ -33,11 +33,12 @@ public class TelaLancamento extends javax.swing.JInternalFrame {
         initComponents();
         descricao.setText(lanc.getDescricao());
         valor.setText(Double.toString(lanc.getValor()));
-        if (lanc.getTipo().toString().equals("Entrada")) {
-            tipo.setSelectedIndex(0);
-        } else {
-            tipo.setSelectedIndex(1);
-        }
+        tipo.setSelectedItem(lanc.getTipo());
+//        if (lanc.getTipo().toString().equals("Entrada")) {
+//            tipo.setS(0);
+//        } else {
+//            tipo.setSelectedIndex(1);
+//        }
         codigo.setText(lanc.getCodigo().toString());
     }
 
@@ -112,23 +113,19 @@ public class TelaLancamento extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(valor, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(valor, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(excluir)
                         .addGap(18, 18, 18)
-                        .addComponent(salvar)))
+                        .addComponent(salvar))
+                    .addComponent(tipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -155,7 +152,7 @@ public class TelaLancamento extends javax.swing.JInternalFrame {
                     .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(excluir)
                     .addComponent(salvar))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -221,12 +218,13 @@ public class TelaLancamento extends javax.swing.JInternalFrame {
             Lancamento lancamento = new Lancamento();
             if (!"".equals(codigo.getText())) {
                 Lancamento antigo = LancamentoController.buscaId(codigo.getText());
+//                antigo.setStatus(false);
 //                Lancamento novo = new Lancamento();
 //                novo.setDescricao(antigo.getDescricao());
 //                novo.setTipo((TipoDeLancamento) antigo.getTipo());
 //                novo.setValor(antigo.getValor());
 //                novo.setCodigo(antigo.getCodigo());
-                ReturnValidate retornoRemove = LancamentoController.Remove(antigo);
+                ReturnValidate retornoUpdate = LancamentoController.InsereLancamento(antigo);
             }
 //            ReturnValidate retorno = LancamentoController.InsereLancamento(novo);
 //            if (retorno.isValid()) {
