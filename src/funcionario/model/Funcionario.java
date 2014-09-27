@@ -6,12 +6,16 @@ import Util.Util;
 import funcao.model.Funcao;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.*;
 import lote.model.Lote;
 import usuario.model.Usuario;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Funcionario.findAll", query = "SELECT f FROM Funcionario f"),
+    @NamedQuery(name = "Funcionario.findByCodfunc", query = "SELECT f FROM Funcionario f WHERE f.codfunc = :codfunc")})
 public class Funcionario extends Usuario implements Serializable, RemovableLogically {
 
     @Column(length = 255, name = "NOME", nullable = false)
@@ -49,8 +53,9 @@ public class Funcionario extends Usuario implements Serializable, RemovableLogic
     @Column(name = "ATIVO", nullable = false)
     private Boolean ativo;
 
-    @ManyToMany(mappedBy = "funcionarios")
-    private List<Lote> lotes; // wilde tive que colocar isso para fazer o relacionamento Lote x Funcionario
+    @ManyToMany(mappedBy = "Lote", fetch = FetchType.EAGER)
+    @JoinColumn(name = "Lote")
+    private Collection<Lote> loteCollection;
 
     public Funcionario() {
         super();
@@ -226,15 +231,14 @@ public class Funcionario extends Usuario implements Serializable, RemovableLogic
     }
 
     /*public static List<Funcionario> getAll() {
-        FuncionarioDaoImpl func = new FuncionarioDaoImpl();
-        return func.getAll(Funcionario.class);
-    }
+     FuncionarioDaoImpl func = new FuncionarioDaoImpl();
+     return func.getAll(Funcionario.class);
+     }
 
-    public static List<Funcionario> getAllActive() {
-        FuncionarioDaoImpl func = new FuncionarioDaoImpl();
-        return func.getAllActive();
-    }*/
-
+     public static List<Funcionario> getAllActive() {
+     FuncionarioDaoImpl func = new FuncionarioDaoImpl();
+     return func.getAllActive();
+     }*/
     @Override
     public String toString() {
         return this.nome;
