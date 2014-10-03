@@ -11,9 +11,6 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -22,7 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import lancamento.model.Lancamento;
+import entities.Lancamento;
 import lancamento.model.SituacaoLancamentoPK;
 
 @Entity
@@ -41,14 +38,13 @@ public class SituacaoLancamento implements Serializable {
     @Column(name = "DATA")
     @Temporal(TemporalType.DATE)
     private Date data;
-    
+
     @JoinColumn(name = "CODLANC", referencedColumnName = "CODLANC", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Lancamento lancamento;
 
-
     @Column(length = 1, name = "STATUS", nullable = false)
-    private TipoSituacaoLancamento status;
+    private SituacaoLancamento status;
 
     public SituacaoLancamento() {
         super();
@@ -56,12 +52,11 @@ public class SituacaoLancamento implements Serializable {
 //        this.data = cal;
     }
 
-
-    public TipoSituacaoLancamento getStatus() {
+    public SituacaoLancamento getStatus() {
         return status;
     }
 
-    public void setStatus(TipoSituacaoLancamento status) {
+    public void setStatus(SituacaoLancamento status) {
         this.status = status;
     }
 

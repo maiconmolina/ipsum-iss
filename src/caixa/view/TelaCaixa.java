@@ -5,13 +5,10 @@
  */
 package caixa.view;
 
-import caixa.controller.CaixaController;
 import ipsum.view.TelaStart;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
-import lancamento.controller.LancamentoController;
-import lancamento.model.Lancamento;
 import lancamento.view.TelaLancamento;
 
 /**
@@ -24,36 +21,36 @@ public class TelaCaixa extends javax.swing.JInternalFrame {
      * Creates new form TelaCaixa
      */
     public TelaCaixa() {
-        initComponents();
-        List<Lancamento> lancamentos = LancamentoController.busca();
-        DefaultTableModel model = (DefaultTableModel) tabelaLancamentos.getModel();
-        for (Lancamento lancamento : lancamentos) {
-            Vector dados = new Vector();
-            dados.add(Integer.toString(lancamento.getCodigo()));
-            dados.add(lancamento.getDescricao());
-            dados.add(lancamento.getTipo());
-            dados.add(lancamento.getValor());
-            model.addRow(dados);
-        }
-        final TelaCaixa EstaTela = this;
-//        EstaTela.dispose();
-        tabelaLancamentos.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                int row = tabelaLancamentos.rowAtPoint(evt.getPoint());
-                int col = tabelaLancamentos.columnAtPoint(evt.getPoint());
-                if (row >= 0 && col >= 0) {
-                    Object lancamento = tabelaLancamentos.getModel().getValueAt(row, 0);
-//                    JOptionPane.showMessageDialog(tabelaLancamentos,lancamento.toString() );
-                    TelaLancamento tl = new TelaLancamento(lancamento.toString());
-                    TelaStart.addFrame(tl);
-                    tl.setLocation(10, 10);
-                    tl.setVisible(true);
-                    EstaTela.dispose();
-                }
-
-            }
-        });
+//        initComponents();
+//        List<Lancamento> lancamentos = LancamentoController.busca();
+//        DefaultTableModel model = (DefaultTableModel) tabelaLancamentos.getModel();
+//        for (Lancamento lancamento : lancamentos) {
+//            Vector dados = new Vector();
+//            dados.add(Integer.toString(lancamento.getCodigo()));
+//            dados.add(lancamento.getDescricao());
+//            dados.add(lancamento.getTipo());
+//            dados.add(lancamento.getValor());
+//            model.addRow(dados);
+//        }
+//        final TelaCaixa EstaTela = this;
+////        EstaTela.dispose();
+//        tabelaLancamentos.addMouseListener(new java.awt.event.MouseAdapter() {
+//            @Override
+//            public void mouseClicked(java.awt.event.MouseEvent evt) {
+//                int row = tabelaLancamentos.rowAtPoint(evt.getPoint());
+//                int col = tabelaLancamentos.columnAtPoint(evt.getPoint());
+//                if (row >= 0 && col >= 0) {
+//                    Object lancamento = tabelaLancamentos.getModel().getValueAt(row, 0);
+////                    JOptionPane.showMessageDialog(tabelaLancamentos,lancamento.toString() );
+//                    TelaLancamento tl = new TelaLancamento(lancamento.toString());
+//                    TelaStart.addFrame(tl);
+//                    tl.setLocation(10, 10);
+//                    tl.setVisible(true);
+//                    EstaTela.dispose();
+//                }
+//
+//            }
+//        });
     }
 
     /**

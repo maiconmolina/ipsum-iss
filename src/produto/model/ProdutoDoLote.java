@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package produto.model;
 
+import entities.Lote;
+import entities.Produto;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -16,7 +17,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import lote.model.Lote;
 
 /**
  *
@@ -31,19 +31,19 @@ import lote.model.Lote;
     @NamedQuery(name = "ProdutoDoLote.findByCodprod", query = "SELECT p FROM ProdutoDoLote p WHERE p.produtoDoLotePK.codprod = :codprod"),
     @NamedQuery(name = "ProdutoDoLote.findByQtde", query = "SELECT p FROM ProdutoDoLote p WHERE p.qtde = :qtde")})
 public class ProdutoDoLote implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     @EmbeddedId
     protected ProdutoDoLotePK produtoDoLotePK;
-    
+
     @Column(name = "QTDE")
     private Integer qtde;
-    
+
     @JoinColumn(name = "CODLOTE", referencedColumnName = "CODLOTE", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Lote lote;
-    
+
     @JoinColumn(name = "CODPROD", referencedColumnName = "CODPROD", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Produto produto;
@@ -115,5 +115,5 @@ public class ProdutoDoLote implements Serializable {
     public String toString() {
         return "teste.ProdutoDoLote[ produtoDoLotePK=" + produtoDoLotePK + " ]";
     }
-    
+
 }
